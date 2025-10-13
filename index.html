@@ -6,9 +6,7 @@
   <title>Block Mind AI</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      scroll-behavior: smooth;
-    }
+    :root { scroll-behavior: smooth; }
 
     body {
       font-family: 'Inter', sans-serif;
@@ -30,10 +28,7 @@
       z-index: 999;
     }
 
-    nav h1 {
-      font-size: 1.5rem;
-      margin: 0;
-    }
+    nav h1 { font-size: 1.5rem; margin: 0; }
 
     nav ul {
       list-style: none;
@@ -50,9 +45,7 @@
       transition: color 0.2s ease;
     }
 
-    nav ul li a:hover {
-      color: #60a5fa;
-    }
+    nav ul li a:hover { color: #60a5fa; }
 
     header {
       background: linear-gradient(135deg, #0f172a, #1e3a8a);
@@ -61,17 +54,8 @@
       text-align: center;
     }
 
-    header h2 {
-      font-size: 3rem;
-      margin-bottom: 15px;
-    }
-
-    header p {
-      font-size: 1.2rem;
-      font-weight: 300;
-      max-width: 800px;
-      margin: auto;
-    }
+    header h2 { font-size: 3rem; margin-bottom: 15px; }
+    header p { font-size: 1.2rem; font-weight: 300; max-width: 800px; margin: auto; }
 
     section {
       padding: 60px 20px;
@@ -79,69 +63,8 @@
       margin: auto;
     }
 
-    section h3 {
-      font-size: 2rem;
-      color: #111827;
-      margin-bottom: 10px;
-    }
-
-    section p {
-      font-size: 1.1rem;
-      color: #374151;
-      line-height: 1.7;
-    }
-
-    #chatbox {
-      background: white;
-      border: 1px solid #d1d5db;
-      border-radius: 8px;
-      padding: 20px;
-      height: 400px;
-      overflow-y: auto;
-      margin-bottom: 20px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-    }
-
-    .message {
-      margin: 10px 0;
-      line-height: 1.4;
-    }
-
-    .user {
-      color: #2563eb;
-    }
-
-    .bot {
-      color: #059669;
-    }
-
-    #inputForm {
-      display: flex;
-      gap: 10px;
-    }
-
-    #userInput {
-      flex: 1;
-      padding: 12px;
-      border: 1px solid #cbd5e1;
-      border-radius: 6px;
-      font-size: 1rem;
-    }
-
-    #sendBtn {
-      padding: 12px 24px;
-      font-size: 1rem;
-      background-color: #2563eb;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    #sendBtn:hover {
-      background-color: #1d4ed8;
-    }
+    section h3 { font-size: 2rem; color: #111827; margin-bottom: 10px; }
+    section p { font-size: 1.1rem; color: #374151; line-height: 1.7; }
 
     footer {
       background-color: #1f2937;
@@ -153,15 +76,91 @@
     }
 
     @media (max-width: 600px) {
-      nav ul {
-        flex-direction: column;
-        align-items: flex-start;
-      }
+      nav ul { flex-direction: column; align-items: flex-start; }
+      nav { flex-direction: column; align-items: flex-start; }
+    }
 
-      nav {
-        flex-direction: column;
-        align-items: flex-start;
-      }
+    /* ---------------- Chat Widget CSS ---------------- */
+    #chat-widget {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 300px;
+      font-family: 'Inter', sans-serif;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      border-radius: 10px;
+      overflow: hidden;
+      z-index: 9999;
+    }
+
+    #chat-header {
+      background-color: #2563eb;
+      color: white;
+      padding: 12px 15px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    #chat-body {
+      background: #f9fafb;
+      max-height: 400px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #chatbox {
+      padding: 10px;
+      height: 250px;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .message {
+      margin: 8px 0;
+      padding: 8px 12px;
+      border-radius: 12px;
+      max-width: 80%;
+      word-wrap: break-word;
+      line-height: 1.4;
+    }
+
+    .user { background-color: #2563eb; color: white; margin-left: auto; }
+    .bot { background-color: #e5e7eb; color: #111827; margin-right: auto; }
+
+    #inputForm {
+      display: flex;
+      border-top: 1px solid #d1d5db;
+    }
+
+    #userInput {
+      flex: 1;
+      border: none;
+      padding: 10px;
+      font-size: 0.9rem;
+    }
+
+    #userInput:focus { outline: none; }
+
+    #sendBtn {
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      padding: 0 15px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    #sendBtn:hover { background-color: #1d4ed8; }
+
+    #chatbox::-webkit-scrollbar { width: 6px; }
+    #chatbox::-webkit-scrollbar-thumb {
+      background-color: #9ca3af;
+      border-radius: 3px;
+    }
+
+    @media (max-width: 500px) {
+      #chat-widget { width: 90%; right: 5%; bottom: 10px; }
     }
   </style>
 </head>
@@ -173,7 +172,6 @@
     <ul>
       <li><a href="#home">Home</a></li>
       <li><a href="#about">About Us</a></li>
-      <li><a href="#chat">Chat</a></li>
       <li><a href="#volunteer">Volunteer</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -197,16 +195,6 @@
     <p>
       We’re building technology that’s powerful yet accountable, and inviting our early backers, developers, and supporters to be part of the foundation. Together, we can shape the AI future into something smarter, fairer, and freer.
     </p>
-  </section>
-
-  <!-- Chat Section -->
-  <section id="chat">
-    <h3>Chat with Block Mind AI</h3>
-    <div id="chatbox"></div>
-    <form id="inputForm">
-      <input type="text" id="userInput" placeholder="Ask something..." autocomplete="off" required />
-      <button type="submit" id="sendBtn">Send</button>
-    </form>
   </section>
 
   <!-- Volunteer Section -->
@@ -237,6 +225,18 @@
     © 2025 Block Mind AI • Built with community, code, and a mission. All rights reserved.
   </footer>
 
+  <!-- ---------------- Chat Widget ---------------- -->
+  <div id="chat-widget">
+    <div id="chat-header">💬 Block Mind AI Support</div>
+    <div id="chat-body">
+      <div id="chatbox"></div>
+      <form id="inputForm">
+        <input type="text" id="userInput" placeholder="Type a message..." autocomplete="off" required />
+        <button type="submit" id="sendBtn">Send</button>
+      </form>
+    </div>
+  </div>
+
   <!-- JS for Chat -->
   <script>
     const chatbox = document.getElementById('chatbox');
@@ -256,9 +256,8 @@
       const message = userInput.value.trim();
       if (!message) return;
 
-      appendMessage(`You: ${message}`, 'user');
+      appendMessage(message, 'user');
       userInput.value = '';
-
       appendMessage('Block Mind AI is typing...', 'bot');
 
       try {
@@ -269,7 +268,7 @@
         });
         const data = await res.json();
         chatbox.lastChild.textContent = '';
-        appendMessage(`Block Mind AI: ${data.reply}`, 'bot');
+        appendMessage(data.reply, 'bot');
       } catch (err) {
         chatbox.lastChild.textContent = '';
         appendMessage('Error: Could not get response', 'bot');
