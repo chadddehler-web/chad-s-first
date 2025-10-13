@@ -5,21 +5,21 @@ const openai = new OpenAI({
 });
 
 export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    res.status(405).json({ error: "Only POST requests allowed" });
+  if (req.method !== 'POST') {
+    res.status(405).json({ error: 'Only POST requests allowed' });
     return;
   }
 
   const { message } = req.body;
 
   if (!message) {
-    res.status(400).json({ error: "No message provided" });
+    res.status(400).json({ error: 'No message provided' });
     return;
   }
 
   try {
     const completion = await openai.chat.completions.create({
-      model: "gpt-4",
+      model: "gpt-3.5-turbo",
       messages: [{ role: "user", content: message }],
     });
 
@@ -27,6 +27,6 @@ export default async function handler(req, res) {
     res.status(200).json({ reply });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "OpenAI API error" });
+    res.status(500).json({ error: 'OpenAI API error' });
   }
 }
