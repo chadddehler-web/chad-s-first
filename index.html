@@ -3,69 +3,146 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Block Mind AI Chatbot</title>
+  <title>Block Mind AI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: Arial, sans-serif;
-      max-width: 800px;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f0f4f8;
+      color: #1f2937;
+    }
+
+    header {
+      background: linear-gradient(135deg, #0f172a, #1e3a8a);
+      color: white;
+      padding: 60px 20px 40px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      font-weight: 300;
+      max-width: 700px;
       margin: auto;
-      padding: 20px;
-      background-color: #f5f5f5;
     }
-    h1, h2 {
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .intro {
       text-align: center;
-      color: #222;
+      margin-bottom: 50px;
     }
-    p {
-      text-align: center;
-      font-size: 1.1em;
-      color: #444;
-      margin-bottom: 30px;
+
+    .intro h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: #111827;
     }
+
+    .intro p {
+      font-size: 1.1rem;
+      color: #374151;
+      max-width: 700px;
+      margin: auto;
+    }
+
     #chatbox {
-      border: 1px solid #ccc;
-      padding: 10px;
+      background: white;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      padding: 20px;
       height: 400px;
-      overflow-y: scroll;
-      background-color: #fff;
+      overflow-y: auto;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
     }
+
     .message {
       margin: 10px 0;
+      line-height: 1.4;
     }
+
     .user {
-      color: blue;
+      color: #2563eb;
     }
+
     .bot {
-      color: green;
+      color: #059669;
     }
+
     #inputForm {
-      margin-top: 10px;
       display: flex;
       gap: 10px;
     }
+
     #userInput {
       flex: 1;
-      padding: 10px;
+      padding: 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 1rem;
     }
+
     #sendBtn {
-      padding: 10px 20px;
+      padding: 12px 24px;
+      font-size: 1rem;
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #sendBtn:hover {
+      background-color: #1d4ed8;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #6b7280;
+      font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
 
-  <h1>Welcome to Block Mind AI</h1>
-  <p><em>"By the people, for the people."</em></p>
-  <p>
-    Block Mind AI is a cryptocurrency project currently in its ICO phase, created to fund the launch of a future public company dedicated to AI innovation. Our mission is to drive transparency and long-term value by prioritizing public interest over private equity control in the development and deployment of artificial intelligence.
-  </p>
+  <header>
+    <h1>Block Mind AI</h1>
+    <p><em>"By the people, for the people."</em></p>
+  </header>
 
-  <h2>Talk to Block Mind AI</h2>
-  <div id="chatbox"></div>
-  <form id="inputForm">
-    <input type="text" id="userInput" placeholder="Say something..." autocomplete="off" required />
-    <button type="submit" id="sendBtn">Send</button>
-  </form>
+  <div class="container">
+    <section class="intro">
+      <h2>The Future of AI, Built for Everyone</h2>
+      <p>
+        Block Mind AI is a blockchain-powered AI project currently in its ICO phase. Our mission is to launch a transparent, publicly accountable AI company — driven by open access, community ownership, and long-term sustainability. We believe AI should serve the people, not be hidden behind private equity gates.
+      </p>
+    </section>
+
+    <h2 style="text-align:center; margin-bottom: 20px;">Talk to Block Mind AI</h2>
+    <div id="chatbox"></div>
+    <form id="inputForm">
+      <input type="text" id="userInput" placeholder="Ask anything..." autocomplete="off" required />
+      <button type="submit" id="sendBtn">Send</button>
+    </form>
+  </div>
+
+  <footer>
+    © 2025 Block Mind AI. All rights reserved.
+  </footer>
 
   <script>
     const chatbox = document.getElementById('chatbox');
@@ -97,7 +174,7 @@
           body: JSON.stringify({ message })
         });
         const data = await res.json();
-        chatbox.lastChild.textContent = ''; // Remove "typing..." text
+        chatbox.lastChild.textContent = '';
         appendMessage(`Block Mind AI: ${data.reply}`, 'bot');
       } catch (err) {
         chatbox.lastChild.textContent = '';
@@ -105,5 +182,6 @@
       }
     });
   </script>
+
 </body>
 </html>
