@@ -5,29 +5,32 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-// Setup Nodemailer transport (using Gmail)
+// Setup Nodemailer transport
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: process.env.MAIL_USER,     // Your Gmail
-    pass: process.env.MAIL_PASS,     // Gmail App Password
+    user: process.env.MAIL_USER,
+    pass: process.env.MAIL_PASS,
   },
 });
 
+// Simple regex patterns
+const emailRegex = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i;
+const phoneRegex = /(\+?\d{1,2}[\s-]?)?(\(?\d{3}\)?[\s-]?)?\d{3}[\s-]?\d{4}/;
+
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    res.status(405).json({ error: 'Only POST requests allowed' });
-    return;
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Only POST requests allowed" });
   }
 
-  const { message, name, email } = req.body;
+  const { message } = req.body;
 
-  if (!message) {
-    res.status(400).json({ error: 'No message provided' });
-    return;
+  if (!message?.trim()) {
+    return res.status(400).json({ error: "No message provided" });
   }
 
   try {
+    // 1️⃣ Generate chatbot reply
     const completion = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [{ role: "user", content: message }],
@@ -35,19 +38,23 @@ export default async function handler(req, res) {
 
     const reply = completion.choices[0].message.content;
 
-    // If user gave contact info, email it to you
-    if (name && email) {
+    // 2️⃣ Detect email or phone in message
+    const foundEmail = message.match(emailRegex);
+    const foundPhone = message.match(phoneRegex);
+
+    if (foundEmail || foundPhone) {
+      // Send lead email
       await transporter.sendMail({
-        from: '"Block Mind AI" <your_email@gmail.com>', // can be same as MAIL_USER
+        from: `"Block Mind AI" <${process.env.MAIL_USER}>`,
         to: "chadddehler@gmail.com",
         subject: "🧠 New Lead from Block Mind AI",
-        text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
+        text: `Message: ${message}\n\nDetected Email: ${foundEmail ? foundEmail[0] : "N/A"}\nDetected Phone: ${foundPhone ? foundPhone[0] : "N/A"}`,
       });
     }
 
     res.status(200).json({ reply });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'OpenAI API or Email error' });
+    res.status(500).json({ error: "OpenAI API or Email error" });
   }
 }
