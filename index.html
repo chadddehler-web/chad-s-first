@@ -3,20 +3,64 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ChatGPT AI Chatbot</title>
+  <title>Block Mind AI Chatbot</title>
   <style>
-    body { font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; }
-    #chatbox { border: 1px solid #ccc; padding: 10px; height: 400px; overflow-y: scroll; }
-    .message { margin: 10px 0; }
-    .user { color: blue; }
-    .bot { color: green; }
-    #inputForm { margin-top: 10px; }
-    #userInput { width: 80%; padding: 10px; }
-    #sendBtn { padding: 10px; }
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    h1, h2 {
+      text-align: center;
+      color: #222;
+    }
+    p {
+      text-align: center;
+      font-size: 1.1em;
+      color: #444;
+      margin-bottom: 30px;
+    }
+    #chatbox {
+      border: 1px solid #ccc;
+      padding: 10px;
+      height: 400px;
+      overflow-y: scroll;
+      background-color: #fff;
+    }
+    .message {
+      margin: 10px 0;
+    }
+    .user {
+      color: blue;
+    }
+    .bot {
+      color: green;
+    }
+    #inputForm {
+      margin-top: 10px;
+      display: flex;
+      gap: 10px;
+    }
+    #userInput {
+      flex: 1;
+      padding: 10px;
+    }
+    #sendBtn {
+      padding: 10px 20px;
+    }
   </style>
 </head>
 <body>
-  <h1>ChatGPT AI Chatbot</h1>
+
+  <h1>Welcome to Block Mind AI</h1>
+  <p><em>"By the people, for the people."</em></p>
+  <p>
+    Block Mind AI is a cryptocurrency project currently in its ICO phase, created to fund the launch of a future public company dedicated to AI innovation. Our mission is to drive transparency and long-term value by prioritizing public interest over private equity control in the development and deployment of artificial intelligence.
+  </p>
+
+  <h2>Talk to Block Mind AI</h2>
   <div id="chatbox"></div>
   <form id="inputForm">
     <input type="text" id="userInput" placeholder="Say something..." autocomplete="off" required />
@@ -44,7 +88,7 @@
       appendMessage(`You: ${message}`, 'user');
       userInput.value = '';
 
-      appendMessage('ChatGPT is typing...', 'bot');
+      appendMessage('Block Mind AI is typing...', 'bot');
 
       try {
         const res = await fetch('/api/chat', {
@@ -54,7 +98,7 @@
         });
         const data = await res.json();
         chatbox.lastChild.textContent = ''; // Remove "typing..." text
-        appendMessage(`ChatGPT: ${data.reply}`, 'bot');
+        appendMessage(`Block Mind AI: ${data.reply}`, 'bot');
       } catch (err) {
         chatbox.lastChild.textContent = '';
         appendMessage('Error: Could not get response', 'bot');
