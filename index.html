@@ -31,7 +31,7 @@
     }
 
     nav h1 {
-      font-size: 1.9rem; /* increased size */
+      font-size: 1.9rem;
       margin: 0;
       font-weight: 700;
       letter-spacing: 0.5px;
@@ -40,11 +40,11 @@
     }
 
     nav h1 img {
-      width: 60px;  /* bigger logo */
+      width: 60px;
       height: 60px;
       margin-right: 10px;
       border-radius: 8px;
-      background: #f59e0b; /* blend with navbar */
+      background: #f59e0b;
       padding: 4px;
     }
 
@@ -122,6 +122,8 @@
       padding: 20px;
       text-align: center;
       transition: transform 0.3s, box-shadow 0.3s;
+      flex-shrink: 0; /* for horizontal scroll */
+      width: 180px;
     }
 
     .product:hover {
@@ -151,7 +153,7 @@
     }
 
     .product button {
-      background-color: #f97316;
+      background: linear-gradient(90deg, #f59e0b, #f97316);
       color: white;
       border: none;
       padding: 10px 18px;
@@ -161,7 +163,9 @@
       transition: background 0.3s;
     }
 
-    .product button:hover { background-color: #b45309; }
+    .product button:hover { 
+      background: linear-gradient(90deg, #b45309, #f97316);
+    }
 
     /* ---------------- Footer ---------------- */
     footer {
@@ -273,49 +277,63 @@
     }
 
     #checkoutModalContent {
-      background-color: #fff;
+      background: linear-gradient(to bottom right, #fffaf0, #fff3e0);
       margin: 50px auto;
       padding: 30px;
-      border-radius: 12px;
+      border-radius: 20px;
       max-width: 400px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.3);
       position: relative;
+      font-family: 'Inter', sans-serif;
     }
 
     #checkoutModalContent h3 {
       margin-top: 0;
       color: #f97316;
       text-align: center;
+      font-size: 1.6rem;
+      margin-bottom: 20px;
     }
 
     #checkoutModalContent label {
       display: block;
-      margin: 12px 0 4px;
+      margin: 10px 0 4px;
       font-weight: 600;
+      color: #374151;
     }
 
     #checkoutModalContent input {
       width: 100%;
-      padding: 8px 10px;
-      border-radius: 6px;
+      padding: 10px;
+      border-radius: 12px;
       border: 1px solid #ccc;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       font-size: 0.95rem;
+      transition: 0.2s all;
+    }
+
+    #checkoutModalContent input:focus {
+      border-color: #f97316;
+      box-shadow: 0 0 8px rgba(249,115,22,0.3);
+      outline: none;
     }
 
     #checkoutModalContent button {
       width: 100%;
-      background-color: #f97316;
+      background: linear-gradient(90deg, #f59e0b, #f97316);
       color: white;
       border: none;
-      padding: 10px;
-      border-radius: 8px;
+      padding: 12px;
+      border-radius: 12px;
       font-size: 1rem;
       cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s all;
     }
 
     #checkoutModalContent button:hover {
-      background-color: #b45309;
+      background: linear-gradient(90deg, #b45309, #f97316);
+      transform: translateY(-2px);
     }
 
     #checkoutModalClose {
@@ -325,200 +343,202 @@
       font-size: 22px;
       font-weight: bold;
       cursor: pointer;
+      color: #374151;
     }
 
-    /* ---------------- Mobile Responsiveness ---------------- */
-    @media (max-width: 500px) {
-      #chat-widget { width: 90%; right: 5%; bottom: 10px; }
-
+    /* ---------------- Mobile Responsive ---------------- */
+    @media (max-width: 600px) {
       .product-grid {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 10px;
+        display: flex;
+        overflow-x: auto;
+        gap: 15px;
+        padding-bottom: 10px;
+        -webkit-overflow-scrolling: touch;
       }
 
-      .product img { width: 100%; }
+      .product {
+        flex: 0 0 auto;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- Navigation -->
-  <nav>
-    <h1>
-      <img src="https://www.mikuzka.com.mx/wp-content/uploads/2025/07/Post-Mayo-GnK-300x300.png" alt="Mikuzka Logo">
-      Mikuzka
-    </h1>
-    <ul>
-      <li><a href="#inicio">Inicio</a></li>
-      <li><a href="#productos">Productos</a></li>
-      <li><a href="#contacto">Contacto</a></li>
-    </ul>
-  </nav>
+<!-- Navigation -->
+<nav>
+  <h1>
+    <img src="https://www.mikuzka.com.mx/wp-content/uploads/2025/07/Post-Mayo-GnK-300x300.png" alt="Mikuzka Logo">
+    Mikuzka
+  </h1>
+  <ul>
+    <li><a href="#inicio">Inicio</a></li>
+    <li><a href="#productos">Productos</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+</nav>
 
-  <!-- Hero Section -->
-  <header id="inicio">
-    <h2>La salsa que más gusta 🌿</h2>
-    <p>Sabores auténticos, ingredientes frescos y el toque especial de Mikuzka.  
-      Descubre por qué todos aman nuestras salsas artesanales.</p>
-  </header>
+<!-- Hero Section -->
+<header id="inicio">
+  <h2>La salsa que más gusta 🌿</h2>
+  <p>Sabores auténticos, ingredientes frescos y el toque especial de Mikuzka.  
+    Descubre por qué todos aman nuestras salsas artesanales.</p>
+</header>
 
-  <!-- Products Section -->
-  <section id="productos">
-    <h3>Selección de productos</h3>
-    <div class="product-grid">
+<!-- Products Section -->
+<section id="productos">
+  <h3>Selección de productos</h3>
+  <div class="product-grid">
 
-      <div class="product">
-        <img src="https://www.mikuzka.com.mx/wp-content/uploads/2025/07/Diseno-sin-titulo-3.png" alt="Aderezo Cilantro Mikuzka">
-        <h4>Aderezo Cilantro (300ml)</h4>
-        <p class="price">60 pesos</p>
-        <button>🛒 Agregar al carrito</button>
-      </div>
-
-      <div class="product">
-        <img src="https://www.mikuzka.com.mx/wp-content/uploads/2025/07/5-1.jpg" alt="Salsa Chilli-Churri">
-        <h4>Salsa Chilli-Churri (300ml)</h4>
-        <p class="price">60 pesos</p>
-        <button>🛒 Agregar al carrito</button>
-      </div>
-
-      <div class="product">
-        <img src="https://www.mikuzka.com.mx/wp-content/uploads/2025/07/6-1.jpg" alt="Salsa Cremo Haba">
-        <h4>Salsa Cremo Haba (300ml)</h4>
-        <p class="price">60 pesos</p>
-        <button>🛒 Agregar al carrito</button>
-      </div>
-
-      <div class="product">
-        <img src="https://www.mikuzka.com.mx/wp-content/uploads/2025/07/7.jpg" alt="Salsa Habanero">
-        <h4>Salsa Habanero (300ml)</h4>
-        <p class="price">60 pesos</p>
-        <button>🛒 Agregar al carrito</button>
-      </div>
-
+    <div class="product">
+      <img src="https://www.mikuzka.com.mx/wp-content/uploads/2025/07/Diseno-sin-titulo-3.png" alt="Aderezo Cilantro Mikuzka">
+      <h4>Aderezo Cilantro (300ml)</h4>
+      <p class="price">60 pesos</p>
+      <button>🛒 Agregar al carrito</button>
     </div>
-  </section>
 
-  <!-- Contact Section -->
-  <section id="contacto" style="text-align:center;">
-    <h3>Contáctanos</h3>
-    <p><strong>Correo:</strong> contacto@mikuzka.com.mx</p>
-    <p><strong>Instagram:</strong> <a href="https://instagram.com/mikuzka" target="_blank">@mikuzka</a></p>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    © 2025 Mikuzka • La salsa que más gusta 🌶️
-  </footer>
-
-  <!-- Small credit -->
-  <p class="powered-by">Powered by Yoghurrrrrrrrrrt!</p>
-
-  <!-- Chat Widget -->
-  <div id="chat-widget">
-    <div id="chat-header">💬 Soporte Mikuzka</div>
-    <div id="chat-body">
-      <div id="chatbox"></div>
-      <form id="inputForm">
-        <input type="text" id="userInput" placeholder="Escribe tu mensaje..." autocomplete="off" required />
-        <button type="submit" id="sendBtn">Enviar</button>
-      </form>
+    <div class="product">
+      <img src="https://www.mikuzka.com.mx/wp-content/uploads/2025/07/5-1.jpg" alt="Salsa Chilli-Churri">
+      <h4>Salsa Chilli-Churri (300ml)</h4>
+      <p class="price">60 pesos</p>
+      <button>🛒 Agregar al carrito</button>
     </div>
+
+    <div class="product">
+      <img src="https://www.mikuzka.com.mx/wp-content/uploads/2025/07/6-1.jpg" alt="Salsa Cremo Haba">
+      <h4>Salsa Cremo Haba (300ml)</h4>
+      <p class="price">60 pesos</p>
+      <button>🛒 Agregar al carrito</button>
+    </div>
+
+    <div class="product">
+      <img src="https://www.mikuzka.com.mx/wp-content/uploads/2025/07/7.jpg" alt="Salsa Habanero">
+      <h4>Salsa Habanero (300ml)</h4>
+      <p class="price">60 pesos</p>
+      <button>🛒 Agregar al carrito</button>
+    </div>
+
   </div>
+</section>
 
-  <!-- Checkout Modal -->
-  <div id="checkoutModal">
-    <div id="checkoutModalContent">
-      <span id="checkoutModalClose">&times;</span>
-      <h3>Completa tu compra</h3>
-      <form id="checkoutForm">
-        <label for="fullName">Nombre completo</label>
-        <input type="text" id="fullName" name="fullName" required>
-        
-        <label for="shippingAddress">Dirección de envío</label>
-        <input type="text" id="shippingAddress" name="shippingAddress" required>
-        
-        <label for="billingAddress">Dirección de facturación</label>
-        <input type="text" id="billingAddress" name="billingAddress" required>
-        
-        <label for="ccNumber">Número de tarjeta</label>
-        <input type="text" id="ccNumber" name="ccNumber" required placeholder="XXXX-XXXX-XXXX-XXXX">
-        
-        <label for="expiry">Fecha de expiración</label>
-        <input type="text" id="expiry" name="expiry" required placeholder="MM/AA">
-        
-        <label for="cvv">CVV</label>
-        <input type="text" id="cvv" name="cvv" required placeholder="123">
-        
-        <button type="submit">Pagar</button>
-      </form>
-    </div>
+<!-- Contact Section -->
+<section id="contacto" style="text-align:center;">
+  <h3>Contáctanos</h3>
+  <p><strong>Correo:</strong> contacto@mikuzka.com.mx</p>
+  <p><strong>Instagram:</strong> <a href="https://instagram.com/mikuzka" target="_blank">@mikuzka</a></p>
+</section>
+
+<!-- Footer -->
+<footer>
+  © 2025 Mikuzka • La salsa que más gusta 🌶️
+</footer>
+<p class="powered-by">Powered by Yoghurrrrrrrrrrt!</p>
+
+<!-- Chat Widget -->
+<div id="chat-widget">
+  <div id="chat-header">💬 Soporte Mikuzka</div>
+  <div id="chat-body">
+    <div id="chatbox"></div>
+    <form id="inputForm">
+      <input type="text" id="userInput" placeholder="Escribe tu mensaje..." autocomplete="off" required />
+      <button type="submit" id="sendBtn">Enviar</button>
+    </form>
   </div>
+</div>
 
-  <!-- JS for Chat and Checkout -->
-  <script>
-    // Chat functionality
-    const chatbox = document.getElementById('chatbox');
-    const inputForm = document.getElementById('inputForm');
-    const userInput = document.getElementById('userInput');
+<!-- Checkout Modal -->
+<div id="checkoutModal">
+  <div id="checkoutModalContent">
+    <span id="checkoutModalClose">&times;</span>
+    <h3>Completa tu compra</h3>
+    <form id="checkoutForm">
+      <label for="fullName">Nombre completo</label>
+      <input type="text" id="fullName" name="fullName" required>
+      
+      <label for="shippingAddress">Dirección de envío</label>
+      <input type="text" id="shippingAddress" name="shippingAddress" required>
+      
+      <label for="billingAddress">Dirección de facturación</label>
+      <input type="text" id="billingAddress" name="billingAddress" required>
+      
+      <label for="ccNumber">Número de tarjeta</label>
+      <input type="text" id="ccNumber" name="ccNumber" required placeholder="XXXX-XXXX-XXXX-XXXX">
+      
+      <label for="expiry">Fecha de expiración</label>
+      <input type="text" id="expiry" name="expiry" required placeholder="MM/AA">
+      
+      <label for="cvv">CVV</label>
+      <input type="text" id="cvv" name="cvv" required placeholder="123">
+      
+      <button type="submit">Pagar</button>
+    </form>
+  </div>
+</div>
 
-    function appendMessage(text, sender) {
-      const msg = document.createElement('div');
-      msg.classList.add('message', sender);
-      msg.textContent = text;
-      chatbox.appendChild(msg);
-      chatbox.scrollTop = chatbox.scrollHeight;
-    }
+<!-- JS for Chat and Checkout -->
+<script>
+  // Chat functionality
+  const chatbox = document.getElementById('chatbox');
+  const inputForm = document.getElementById('inputForm');
+  const userInput = document.getElementById('userInput');
 
-    inputForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const message = userInput.value.trim();
-      if (!message) return;
+  function appendMessage(text, sender) {
+    const msg = document.createElement('div');
+    msg.classList.add('message', sender);
+    msg.textContent = text;
+    chatbox.appendChild(msg);
+    chatbox.scrollTop = chatbox.scrollHeight;
+  }
 
-      appendMessage(message, 'user');
-      userInput.value = '';
-      appendMessage('Mikuzka está respondiendo...', 'bot');
+  inputForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const message = userInput.value.trim();
+    if (!message) return;
 
-      try {
-        const res = await fetch('/api/chat', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message })
-        });
-        const data = await res.json();
-        chatbox.lastChild.textContent = '';
-        appendMessage(data.reply, 'bot');
-      } catch (err) {
-        chatbox.lastChild.textContent = '';
-        appendMessage('Error: No pudimos obtener respuesta.', 'bot');
-      }
-    });
+    appendMessage(message, 'user');
+    userInput.value = '';
+    appendMessage('Mikuzka está respondiendo...', 'bot');
 
-    // Checkout Modal functionality
-    const checkoutModal = document.getElementById('checkoutModal');
-    const checkoutClose = document.getElementById('checkoutModalClose');
-
-    document.querySelectorAll('.product button').forEach(btn => {
-      btn.addEventListener('click', () => {
-        checkoutModal.style.display = 'block';
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message })
       });
+      const data = await res.json();
+      chatbox.lastChild.textContent = '';
+      appendMessage(data.reply, 'bot');
+    } catch (err) {
+      chatbox.lastChild.textContent = '';
+      appendMessage('Error: No pudimos obtener respuesta.', 'bot');
+    }
+  });
+
+  // Checkout Modal functionality
+  const checkoutModal = document.getElementById('checkoutModal');
+  const checkoutClose = document.getElementById('checkoutModalClose');
+
+  document.querySelectorAll('.product button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      checkoutModal.style.display = 'block';
     });
+  });
 
-    checkoutClose.onclick = () => {
+  checkoutClose.onclick = () => {
+    checkoutModal.style.display = 'none';
+  };
+
+  window.onclick = (event) => {
+    if (event.target == checkoutModal) {
       checkoutModal.style.display = 'none';
-    };
+    }
+  };
 
-    window.onclick = (event) => {
-      if (event.target == checkoutModal) {
-        checkoutModal.style.display = 'none';
-      }
-    };
-
-    document.getElementById('checkoutForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      alert('¡Compra completada! Gracias por tu compra.');
-      checkoutModal.style.display = 'none';
-    });
-  </script>
+  document.getElementById('checkoutForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    alert('¡Compra completada! Gracias por tu compra.');
+    checkoutModal.style.display = 'none';
+  });
+</script>
 
 </body>
 </html>
