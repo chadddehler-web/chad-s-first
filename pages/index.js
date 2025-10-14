@@ -1,370 +1,201 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Block Mind AI – Custom Websites & AI Chatbots</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root { scroll-behavior: smooth; }
+// pages/index.js
+import { useState } from "react";
 
-    body {
-      font-family: 'Inter', sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #fff8f0;
-      color: #1f2937;
-    }
+export default function Home() {
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState("");
 
-    nav {
-      background: #ff8c00;
-      color: white;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 30px;
-      position: sticky;
-      top: 0;
-      z-index: 999;
-    }
+  const appendMessage = (text, sender) => {
+    setMessages((prev) => [...prev, { text, sender }]);
+  };
 
-    nav h1 { font-size: 1.5rem; margin: 0; }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!input.trim()) return;
+    appendMessage(input, "user");
+    setInput("");
+    appendMessage("Block Mind AI is typing...", "bot");
 
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 20px;
-      margin: 0;
-      padding: 0;
-    }
-
-    nav ul li a {
-      color: white;
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.2s ease;
-    }
-
-    nav ul li a:hover { color: #fff1cc; }
-
-    header {
-      background: linear-gradient(135deg, #ff8c00, #ffa500);
-      color: white;
-      padding: 80px 20px 60px;
-      text-align: center;
-    }
-
-    header h2 { font-size: 3rem; margin-bottom: 15px; }
-    header p { font-size: 1.2rem; font-weight: 300; max-width: 800px; margin: auto; }
-
-    section {
-      padding: 60px 20px;
-      max-width: 1000px;
-      margin: auto;
-    }
-
-    section h3 { font-size: 2rem; color: #111827; margin-bottom: 10px; text-align: center; }
-    section p { font-size: 1.1rem; color: #374151; line-height: 1.7; }
-
-    /* ---------------- Selling Points ---------------- */
-    .selling-points {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 30px;
-      margin-top: 40px;
-    }
-
-    .point {
-      background: linear-gradient(135deg, #fff8f0, #fff1cc);
-      border-radius: 16px;
-      padding: 25px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-      flex: 1 1 250px;
-      max-width: 300px;
-      text-align: center;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-
-    .point:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-    }
-
-    .point-icon {
-      width: 60px;
-      height: 60px;
-      margin-bottom: 15px;
-    }
-
-    .point h4 {
-      margin: 10px 0 8px;
-      color: #111827;
-      font-size: 1.2rem;
-      font-weight: 600;
-    }
-
-    .point p {
-      color: #374151;
-      font-size: 0.95rem;
-      line-height: 1.5;
-    }
-
-    /* ---------------- CTA ---------------- */
-    .cta {
-      text-align: center;
-      margin-top: 60px;
-    }
-
-    .cta button {
-      background-color: #ff8c00;
-      color: white;
-      border: none;
-      padding: 15px 40px;
-      border-radius: 8px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      margin: 10px 0;
-    }
-
-    .cta button:hover {
-      background-color: #ff7300;
-    }
-
-    footer {
-      background-color: #1f2937;
-      color: #9ca3af;
-      text-align: center;
-      padding: 30px 20px;
-      font-size: 0.9rem;
-      margin-top: 60px;
-    }
-
-    /* ---------------- Chat Widget ---------------- */
-    #chat-widget {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 300px;
-      font-family: 'Inter', sans-serif;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-      border-radius: 10px;
-      overflow: hidden;
-      z-index: 9999;
-    }
-
-    #chat-header {
-      background-color: #ff8c00;
-      color: white;
-      padding: 12px 15px;
-      font-weight: 600;
-      cursor: pointer;
-      text-align: center;
-    }
-
-    #chat-body {
-      background: #f9fafb;
-      max-height: 400px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    #chatbox {
-      padding: 10px;
-      height: 250px;
-      overflow-y: auto;
-      flex: 1;
-    }
-
-    .message {
-      margin: 8px 0;
-      padding: 8px 12px;
-      border-radius: 12px;
-      max-width: 80%;
-      word-wrap: break-word;
-      line-height: 1.4;
-    }
-
-    .user { background-color: #ff8c00; color: white; margin-left: auto; }
-    .bot { background-color: #e5e7eb; color: #111827; margin-right: auto; }
-
-    #inputForm {
-      display: flex;
-      border-top: 1px solid #d1d5db;
-    }
-
-    #userInput {
-      flex: 1;
-      border: none;
-      padding: 10px;
-      font-size: 0.9rem;
-    }
-
-    #userInput:focus { outline: none; }
-
-    #sendBtn {
-      background-color: #ff8c00;
-      color: white;
-      border: none;
-      padding: 0 15px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    #sendBtn:hover { background-color: #ff7300; }
-
-    #powered-by {
-      text-align: center;
-      font-size: 0.8rem;
-      color: #666;
-      background: #f9fafb;
-      padding: 6px;
-    }
-
-    #chatbox::-webkit-scrollbar { width: 6px; }
-    #chatbox::-webkit-scrollbar-thumb {
-      background-color: #9ca3af;
-      border-radius: 3px;
-    }
-
-    @media (max-width: 600px) {
-      nav ul { flex-direction: column; align-items: flex-start; }
-      nav { flex-direction: column; align-items: flex-start; }
-      .selling-points { flex-direction: column; gap: 20px; }
-    }
-  </style>
-  <script src="https://js.stripe.com/v3/"></script>
-</head>
-<body>
-
-  <!-- Navigation -->
-  <nav>
-    <h1>Block Mind AI</h1>
-    <ul>
-      <li><a href="#home">Home</a></li>
-      <li><a href="#about">Why Us</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
-
-  <!-- Hero Section -->
-  <header id="home">
-    <h2>Custom Websites + AI Chatbots That Work</h2>
-    <p><em>“Professional websites built to convert — powered by AI.”</em></p>
-    <p style="margin-top: 20px;">
-      We create stunning custom websites that come with an AI chatbot built to generate leads 24/7. Every site is designed from scratch and refined until you’re 100% satisfied.
-    </p>
-  </header>
-
-  <!-- Selling Points Section -->
-  <section id="about">
-    <div class="selling-points">
-      <div class="point">
-        <img src="https://img.icons8.com/ios-filled/80/ff8c00/laptop.png" alt="Custom Website" class="point-icon">
-        <h4>💻 Custom Website Design</h4>
-        <p>Every site is built from scratch, tailored to your business, and refined until you’re 100% satisfied.</p>
-      </div>
-      <div class="point">
-        <img src="https://img.icons8.com/ios-filled/80/ff8c00/artificial-intelligence.png" alt="AI Chatbot" class="point-icon">
-        <h4>🤖 AI Chatbot Integration</h4>
-        <p>Your chatbot captures leads automatically and sends them directly to your inbox — day or night.</p>
-      </div>
-      <div class="point">
-        <img src="https://img.icons8.com/ios-filled/80/ff8c00/graph.png" alt="Conversions" class="point-icon">
-        <h4>📈 Convert Visitors Into Clients</h4>
-        <p>Optimized to convert visitors into real customers, increasing your business growth.</p>
-      </div>
-      <div class="point">
-        <img src="https://img.icons8.com/ios-filled/80/ff8c00/customer-support.png" alt="Support" class="point-icon">
-        <h4>💬 Ongoing Support</h4>
-        <p>Keep your website and AI chatbot updated with continuous maintenance and support.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA Section -->
-  <section class="cta">
-    <h3>Ready to get started?</h3>
-    <p>Pick the option that fits you best and launch your AI-powered site today.</p>
-    <button onclick="checkout('price_1SI376GfhzKDLKRCnQRwArFN')">Buy AI Chatbot – $75 setup + $199/mo</button>
-    <br>
-    <button onclick="checkout('price_1SIAttGfhzKDLKRC49oSkZtJ')">Buy Website + Chatbot – $249 setup + $199/mo</button>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact">
-    <h3>Contact Us</h3>
-    <p>Email us at <strong>contact@blockmindai.org</strong> or reach out on Telegram: <strong>@blockmindai</strong></p>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    © 2025 Block Mind AI • Custom Websites + AI Chatbots.
-  </footer>
-
-  <!-- Chat Widget -->
-  <div id="chat-widget">
-    <div id="chat-header">💬 Chat With Us</div>
-    <div id="chat-body">
-      <div id="chatbox"></div>
-      <form id="inputForm">
-        <input type="text" id="userInput" placeholder="Type a message..." autocomplete="off" required />
-        <button type="submit" id="sendBtn">Send</button>
-      </form>
-      <div id="powered-by">Powered by Block Mind AI</div>
-    </div>
-  </div>
-
-  <script>
-    const chatbox = document.getElementById('chatbox');
-    const inputForm = document.getElementById('inputForm');
-    const userInput = document.getElementById('userInput');
-
-    function appendMessage(text, sender) {
-      const msg = document.createElement('div');
-      msg.classList.add('message', sender);
-      msg.textContent = text;
-      chatbox.appendChild(msg);
-      chatbox.scrollTop = chatbox.scrollHeight;
-    }
-
-    inputForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const message = userInput.value.trim();
-      if (!message) return;
-      appendMessage(message, 'user');
-      userInput.value = '';
-      appendMessage('Block Mind AI is typing...', 'bot');
-      try {
-        const res = await fetch('/api/chat', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message })
-        });
-        const data = await res.json();
-        chatbox.lastChild.textContent = '';
-        appendMessage(data.reply, 'bot');
-      } catch {
-        chatbox.lastChild.textContent = '';
-        appendMessage('Error: Could not get response', 'bot');
-      }
-    });
-
-    async function checkout(priceId) {
-      const res = await fetch('/api/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ priceId })
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: input }),
       });
       const data = await res.json();
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
-        alert('Checkout error. Please try again.');
-      }
+      setMessages((prev) =>
+        prev.map((msg) =>
+          msg.sender === "bot" && msg.text === "Block Mind AI is typing..."
+            ? { text: data.reply, sender: "bot" }
+            : msg
+        )
+      );
+    } catch {
+      setMessages((prev) =>
+        prev.map((msg) =>
+          msg.sender === "bot" && msg.text === "Block Mind AI is typing..."
+            ? { text: "Error: Could not get response", sender: "bot" }
+            : msg
+        )
+      );
     }
-  </script>
+  };
 
-</body>
-</html>
+  const handleCheckout = async (priceId) => {
+    const res = await fetch("/api/checkout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ priceId }),
+    });
+    const data = await res.json();
+    if (data.url) window.location.href = data.url;
+    else alert("Checkout error. Please try again.");
+  };
+
+  return (
+    <>
+      {/* Navigation */}
+      <nav className="bg-orange-600 text-white flex justify-between items-center p-4 sticky top-0 z-50">
+        <h1 className="text-xl m-0">Block Mind AI</h1>
+        <ul className="flex gap-5 m-0 p-0 list-none">
+          <li>
+            <a href="#home" className="hover:text-yellow-100 font-medium">
+              Home
+            </a>
+          </li>
+          <li>
+            <a href="#about" className="hover:text-yellow-100 font-medium">
+              Why Us
+            </a>
+          </li>
+          <li>
+            <a href="#contact" className="hover:text-yellow-100 font-medium">
+              Contact
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      {/* Hero Section */}
+      <header className="bg-gradient-to-br from-orange-600 to-orange-400 text-white text-center py-20 px-5">
+        <h2 className="text-5xl mb-4">Custom Websites + AI Chatbots That Work</h2>
+        <p className="text-lg font-light max-w-xl mx-auto">
+          <em>“Professional websites built to convert — powered by AI.”</em>
+        </p>
+        <p className="mt-5 max-w-xl mx-auto">
+          We create stunning custom websites that come with an AI chatbot built to
+          generate leads 24/7. Every site is designed from scratch and refined until
+          you’re 100% satisfied.
+        </p>
+      </header>
+
+      {/* Selling Points Section */}
+      <section id="about" className="py-16 max-w-5xl mx-auto px-5">
+        <div className="flex flex-wrap justify-center gap-8 mt-10">
+          {[
+            {
+              icon: "https://img.icons8.com/ios-filled/80/ff8c00/laptop.png",
+              title: "💻 Custom Website Design",
+              desc: "Every site is built from scratch, tailored to your business, and refined until you’re 100% satisfied.",
+            },
+            {
+              icon: "https://img.icons8.com/ios-filled/80/ff8c00/artificial-intelligence.png",
+              title: "🤖 AI Chatbot Integration",
+              desc: "Your chatbot captures leads automatically and sends them directly to your inbox — day or night.",
+            },
+            {
+              icon: "https://img.icons8.com/ios-filled/80/ff8c00/graph.png",
+              title: "📈 Convert Visitors Into Clients",
+              desc: "Optimized to convert visitors into real customers, increasing your business growth.",
+            },
+            {
+              icon: "https://img.icons8.com/ios-filled/80/ff8c00/customer-support.png",
+              title: "💬 Ongoing Support",
+              desc: "Keep your website and AI chatbot updated with continuous maintenance and support.",
+            },
+          ].map((point, i) => (
+            <div
+              key={i}
+              className="flex-1 max-w-xs bg-gradient-to-br from-orange-50 to-yellow-50 rounded-xl p-6 shadow-lg text-center hover:shadow-2xl transition-transform transform hover:-translate-y-1"
+            >
+              <img src={point.icon} alt={point.title} className="w-15 h-15 mb-4 mx-auto" />
+              <h4 className="text-lg font-semibold mb-2">{point.title}</h4>
+              <p className="text-gray-700 text-sm leading-relaxed">{point.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="text-center mt-16 px-5">
+        <h3 className="text-3xl mb-2">Ready to get started?</h3>
+        <p>Pick the option that fits you best and launch your AI-powered site today.</p>
+        <div className="mt-4 flex flex-col gap-4 items-center">
+          <button
+            className="bg-orange-600 text-white px-10 py-3 rounded hover:bg-orange-500"
+            onClick={() => handleCheckout("price_1SI376GfhzKDLKRCnQRwArFN")}
+          >
+            Buy AI Chatbot – $75 setup + $199/mo
+          </button>
+          <button
+            className="bg-orange-600 text-white px-10 py-3 rounded hover:bg-orange-500"
+            onClick={() => handleCheckout("price_1SIAttGfhzKDLKRC49oSkZtJ")}
+          >
+            Buy Website + Chatbot – $249 setup + $199/mo
+          </button>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="py-16 px-5 text-center max-w-3xl mx-auto">
+        <h3 className="text-3xl mb-2">Contact Us</h3>
+        <p>
+          Email us at <strong>contact@blockmindai.org</strong> or reach out on
+          Telegram: <strong>@blockmindai</strong>
+        </p>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-gray-400 text-center py-8 mt-16 text-sm">
+        © 2025 Block Mind AI • Custom Websites + AI Chatbots.
+      </footer>
+
+      {/* Chat Widget */}
+      <div className="fixed bottom-5 right-5 w-80 shadow-lg rounded-lg overflow-hidden z-50 font-sans">
+        <div className="bg-orange-600 text-white font-semibold text-center p-3 cursor-pointer">
+          💬 Chat With Us
+        </div>
+        <div className="bg-gray-50 flex flex-col max-h-96">
+          <div className="overflow-y-auto p-2 flex-1">
+            {messages.map((msg, i) => (
+              <div
+                key={i}
+                className={`max-w-4/5 my-2 p-2 rounded-lg ${
+                  msg.sender === "user" ? "bg-orange-600 text-white ml-auto" : "bg-gray-200 text-gray-900 mr-auto"
+                }`}
+              >
+                {msg.text}
+              </div>
+            ))}
+          </div>
+          <form className="flex border-t border-gray-300" onSubmit={handleSubmit}>
+            <input
+              type="text"
+              className="flex-1 p-2 text-sm outline-none"
+              placeholder="Type a message..."
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              required
+            />
+            <button type="submit" className="bg-orange-600 text-white px-4">
+              Send
+            </button>
+          </form>
+          <div className="text-center text-xs text-gray-500 p-1 bg-gray-50">
+            Powered by Block Mind AI
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
