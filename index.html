@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Mikuzka | La salsa que más gusta 🌶️</title>
+  <title>Mikuzka | La salsa que más gusta 🌿</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root { scroll-behavior: smooth; }
@@ -50,71 +50,89 @@
       transition: color 0.2s ease;
     }
 
-    nav ul li a:hover { color: #fbbf24; }
+    nav ul li a:hover { color: #fde68a; }
 
     header {
-      background: linear-gradient(rgba(185, 28, 28, 0.7), rgba(185, 28, 28, 0.7)),
-        url('https://www.mikuzka.com.mx/wp-content/uploads/2025/07/5.jpg') center/cover no-repeat;
-      color: white;
-      padding: 100px 20px;
       text-align: center;
+      padding: 80px 20px 60px;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(4px);
+      margin-bottom: 40px;
     }
 
-    header h2 { font-size: 3rem; margin-bottom: 15px; }
-    header p { font-size: 1.2rem; font-weight: 300; max-width: 800px; margin: auto; }
+    header h2 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      color: #b91c1c;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      color: #374151;
+    }
 
     section {
-      background-color: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(4px);
       padding: 60px 20px;
       max-width: 900px;
-      margin: 50px auto;
-      border-radius: 12px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      margin: auto;
+      background: rgba(255,255,255,0.85);
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
     }
 
-    section h3 { font-size: 2rem; color: #b91c1c; margin-bottom: 20px; }
-    section p { font-size: 1.1rem; color: #374151; line-height: 1.7; }
-
-    .productos {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 25px;
-      margin-top: 40px;
-    }
-
-    .producto {
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-      padding: 20px;
+    section h3 {
+      font-size: 2rem;
+      color: #b91c1c;
       text-align: center;
-      transition: transform 0.3s;
+      margin-bottom: 30px;
     }
 
-    .producto:hover { transform: translateY(-5px); }
+    .product {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
 
-    .producto img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
+    .product img {
+      width: 260px;
       border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      margin-bottom: 20px;
     }
 
-    .producto h4 { margin: 15px 0 5px; font-size: 1.4rem; color: #b91c1c; }
-    .producto p { margin: 5px 0; }
-    .producto .precio { font-weight: 700; font-size: 1.1rem; color: #111827; }
+    .price {
+      font-size: 1.5rem;
+      color: #065f46;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .product button {
+      background-color: #b91c1c;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .product button:hover {
+      background-color: #7f1d1d;
+    }
 
     footer {
-      background-color: rgba(31, 41, 55, 0.95);
-      color: #9ca3af;
+      background-color: rgba(0,0,0,0.85);
+      color: #f3f4f6;
       text-align: center;
-      padding: 30px 20px;
+      padding: 25px 20px;
       font-size: 0.9rem;
       margin-top: 60px;
     }
 
-    /* Chat Widget */
+    /* ---------------- Chat Widget ---------------- */
     #chat-widget {
       position: fixed;
       bottom: 20px;
@@ -185,77 +203,72 @@
       transition: background-color 0.3s;
     }
 
-    #sendBtn:hover { background-color: #991b1b; }
+    #sendBtn:hover { background-color: #7f1d1d; }
+
+    #chatbox::-webkit-scrollbar { width: 6px; }
+    #chatbox::-webkit-scrollbar-thumb {
+      background-color: #9ca3af;
+      border-radius: 3px;
+    }
+
+    @media (max-width: 500px) {
+      #chat-widget { width: 90%; right: 5%; bottom: 10px; }
+    }
   </style>
 </head>
 <body>
 
   <!-- Navigation -->
   <nav>
-    <h1>🌶️ Mikuzka</h1>
+    <h1>Mikuzka</h1>
     <ul>
       <li><a href="#inicio">Inicio</a></li>
-      <li><a href="#productos">Productos</a></li>
+      <li><a href="#producto">Producto</a></li>
       <li><a href="#contacto">Contacto</a></li>
     </ul>
   </nav>
 
   <!-- Hero Section -->
   <header id="inicio">
-    <h2>Bienvenidos a Mikuzka</h2>
-    <p><em>“La salsa que más gusta.”</em></p>
-    <p style="margin-top: 20px;">
-      Hecha con pasión mexicana 🌶️, Mikuzka es la salsa artesanal que combina sabor, frescura y un toque de fuego.  
-      Perfecta para tus tacos, botanas y todo lo que necesite un sabor auténtico.
-    </p>
+    <h2>La salsa que más gusta 🌿</h2>
+    <p>Auténtico sabor mexicano, hecho con pasión y los mejores ingredientes naturales.</p>
   </header>
 
-  <!-- Productos -->
-  <section id="productos">
-    <h3>Nuestras Salsas</h3>
-    <div class="productos">
-      <div class="producto">
-        <img src="https://images.unsplash.com/photo-1601050690597-df4cd1c25353?auto=format&fit=crop&w=800&q=80" alt="Salsa Mango Habanero">
-        <h4>Mango Habanero</h4>
-        <p>Una mezcla dulce y picante con el toque tropical del mango y el fuego del habanero.</p>
-        <p class="precio">₱43</p>
-      </div>
-
-      <div class="producto">
-        <img src="https://images.unsplash.com/photo-1565958011705-44b6b52142c2?auto=format&fit=crop&w=800&q=80" alt="Salsa Roja Clásica">
-        <h4>Clásica Roja</h4>
-        <p>El sabor tradicional de México: tomates asados, chiles secos y un toque de ajo.</p>
-        <p class="precio">₱38</p>
-      </div>
+  <!-- Product Section -->
+  <section id="producto">
+    <h3>Aderezo Cilantro (300ml)</h3>
+    <div class="product">
+      <img src="https://www.mikuzka.com.mx/wp-content/uploads/2025/07/Diseno-sin-titulo-3.png" alt="Aderezo Cilantro Mikuzka">
+      <p class="price">60 pesos</p>
+      <button>🛒 Agregar al carrito</button>
     </div>
   </section>
 
-  <!-- Contacto -->
-  <section id="contacto">
+  <!-- Contact Section -->
+  <section id="contacto" style="text-align:center;">
     <h3>Contáctanos</h3>
-    <p>¿Quieres hacer un pedido o distribuir Mikuzka? Escríbenos.</p>
-    <p><strong>Email:</strong> contacto@mikuzka.mx</p>
-    <p><strong>Teléfono:</strong> +52 55 1234 5678</p>
+    <p><strong>Correo:</strong> contacto@mikuzka.com.mx</p>
+    <p><strong>Instagram:</strong> <a href="https://instagram.com/mikuzka" target="_blank">@mikuzka</a></p>
   </section>
 
   <!-- Footer -->
   <footer>
-    © 2025 Mikuzka • La salsa que más gusta 🌶️ | Todos los derechos reservados.
+    © 2025 Mikuzka • La salsa que más gusta 🌶️
   </footer>
 
-  <!-- Chatbot -->
+  <!-- Chat Widget -->
   <div id="chat-widget">
-    <div id="chat-header">💬 Chat con Mikuzka</div>
+    <div id="chat-header">💬 Mikuzka Soporte</div>
     <div id="chat-body">
       <div id="chatbox"></div>
       <form id="inputForm">
-        <input type="text" id="userInput" placeholder="Escribe un mensaje..." autocomplete="off" required />
+        <input type="text" id="userInput" placeholder="Escribe tu mensaje..." autocomplete="off" required />
         <button type="submit" id="sendBtn">Enviar</button>
       </form>
     </div>
   </div>
 
-  <!-- JS -->
+  <!-- JS for Chat -->
   <script>
     const chatbox = document.getElementById('chatbox');
     const inputForm = document.getElementById('inputForm');
@@ -276,7 +289,7 @@
 
       appendMessage(message, 'user');
       userInput.value = '';
-      appendMessage('Mikuzka está escribiendo...', 'bot');
+      appendMessage('Mikuzka está respondiendo...', 'bot');
 
       try {
         const res = await fetch('/api/chat', {
@@ -289,7 +302,7 @@
         appendMessage(data.reply, 'bot');
       } catch (err) {
         chatbox.lastChild.textContent = '';
-        appendMessage('Error: No pudimos responder.', 'bot');
+        appendMessage('Error: No pudimos obtener respuesta.', 'bot');
       }
     });
   </script>
