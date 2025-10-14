@@ -28,8 +28,8 @@ export default async function handler(req, res) {
       cancel_url: `${req.headers.origin}/?canceled=true`,
     });
 
-    // 👇 Return the session URL (not the ID)
-    res.status(200).json({ url: session.url });
+    // 👇 Return the session ID for stripe.redirectToCheckout
+    res.status(200).json({ id: session.id });
   } catch (err) {
     console.error("Stripe checkout error:", err.message);
     res.status(500).json({ error: "Stripe session creation failed" });
