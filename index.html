@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Block Mind AI | Custom Websites & AI Chatbots</title>
+  <title>Block Mind AI – Custom Websites & AI Chatbots</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root { scroll-behavior: smooth; }
@@ -12,12 +12,12 @@
       font-family: 'Inter', sans-serif;
       margin: 0;
       padding: 0;
-      background: #f9fafb;
+      background: #fff8f0;
       color: #1f2937;
     }
 
     nav {
-      background: #111827;
+      background: #ff8c00;
       color: white;
       display: flex;
       justify-content: space-between;
@@ -28,7 +28,7 @@
       z-index: 999;
     }
 
-    nav h1 { font-size: 1.6rem; margin: 0; font-weight: 700; }
+    nav h1 { font-size: 1.5rem; margin: 0; }
 
     nav ul {
       list-style: none;
@@ -45,78 +45,61 @@
       transition: color 0.2s ease;
     }
 
-    nav ul li a:hover { color: #facc15; }
+    nav ul li a:hover { color: #fff1cc; }
 
     header {
-      background: linear-gradient(135deg, #f59e0b, #ef4444);
+      background: linear-gradient(135deg, #ff8c00, #ffa500);
       color: white;
+      padding: 80px 20px 60px;
       text-align: center;
-      padding: 100px 20px;
     }
 
-    header h2 { font-size: 2.8rem; margin-bottom: 10px; }
-    header p { font-size: 1.2rem; font-weight: 400; max-width: 700px; margin: auto; }
-
-    .cta-btn {
-      background: white;
-      color: #ef4444;
-      font-weight: 600;
-      border: none;
-      border-radius: 8px;
-      padding: 14px 28px;
-      margin-top: 25px;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: background 0.3s;
-    }
-
-    .cta-btn:hover { background: #f3f4f6; }
+    header h2 { font-size: 3rem; margin-bottom: 15px; }
+    header p { font-size: 1.2rem; font-weight: 300; max-width: 800px; margin: auto; }
 
     section {
-      padding: 70px 20px;
-      max-width: 1000px;
+      padding: 60px 20px;
+      max-width: 900px;
       margin: auto;
-      text-align: center;
     }
 
-    section h3 { font-size: 2rem; color: #111827; margin-bottom: 20px; }
-    section p { font-size: 1.1rem; color: #374151; line-height: 1.7; max-width: 800px; margin: auto; }
+    section h3 { font-size: 2rem; color: #111827; margin-bottom: 10px; }
+    section p { font-size: 1.1rem; color: #374151; line-height: 1.7; }
 
-    .products {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
+    .selling-points {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 30px;
       margin-top: 40px;
     }
 
-    .product-card {
-      background: white;
-      border-radius: 16px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      width: 280px;
-      padding: 25px;
+    .point {
+      background: #fff1cc;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
       text-align: center;
-      transition: transform 0.3s ease;
     }
 
-    .product-card:hover { transform: translateY(-5px); }
+    .cta {
+      text-align: center;
+      margin-top: 60px;
+    }
 
-    .product-card h4 { font-size: 1.3rem; color: #111827; margin-bottom: 10px; }
-    .product-card p { color: #4b5563; font-size: 0.95rem; margin-bottom: 15px; }
-
-    .buy-btn {
-      background: #ef4444;
+    .cta button {
+      background-color: #ff8c00;
       color: white;
       border: none;
-      border-radius: 6px;
-      padding: 10px 20px;
-      font-weight: 600;
+      padding: 15px 40px;
+      border-radius: 8px;
+      font-size: 1rem;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: background-color 0.3s ease;
     }
 
-    .buy-btn:hover { background: #dc2626; }
+    .cta button:hover {
+      background-color: #ff7300;
+    }
 
     footer {
       background-color: #1f2937;
@@ -124,7 +107,7 @@
       text-align: center;
       padding: 30px 20px;
       font-size: 0.9rem;
-      margin-top: 80px;
+      margin-top: 60px;
     }
 
     /* Chat Widget */
@@ -141,7 +124,7 @@
     }
 
     #chat-header {
-      background-color: #ef4444;
+      background-color: #ff8c00;
       color: white;
       padding: 12px 15px;
       font-weight: 600;
@@ -149,121 +132,150 @@
       text-align: center;
     }
 
-    #chat-body { background: #f9fafb; display: none; flex-direction: column; max-height: 400px; }
+    #chat-body {
+      background: #f9fafb;
+      max-height: 400px;
+      display: flex;
+      flex-direction: column;
+    }
 
-    #chatbox { padding: 10px; height: 250px; overflow-y: auto; flex: 1; }
+    #chatbox {
+      padding: 10px;
+      height: 250px;
+      overflow-y: auto;
+      flex: 1;
+    }
 
     .message {
       margin: 8px 0;
       padding: 8px 12px;
       border-radius: 12px;
       max-width: 80%;
+      word-wrap: break-word;
       line-height: 1.4;
     }
 
-    .user { background-color: #ef4444; color: white; margin-left: auto; }
+    .user { background-color: #ff8c00; color: white; margin-left: auto; }
     .bot { background-color: #e5e7eb; color: #111827; margin-right: auto; }
 
-    #inputForm { display: flex; border-top: 1px solid #d1d5db; }
-    #userInput { flex: 1; border: none; padding: 10px; font-size: 0.9rem; }
+    #inputForm {
+      display: flex;
+      border-top: 1px solid #d1d5db;
+    }
+
+    #userInput {
+      flex: 1;
+      border: none;
+      padding: 10px;
+      font-size: 0.9rem;
+    }
+
     #userInput:focus { outline: none; }
+
     #sendBtn {
-      background-color: #ef4444;
+      background-color: #ff8c00;
       color: white;
       border: none;
       padding: 0 15px;
       cursor: pointer;
+      transition: background-color 0.3s;
     }
 
-    @media (max-width: 600px) {
-      nav ul { flex-direction: column; align-items: flex-start; }
-      .products { flex-direction: column; align-items: center; }
+    #sendBtn:hover { background-color: #ff7300; }
+
+    #powered-by {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #666;
+      background: #f9fafb;
+      padding: 6px;
+    }
+
+    #chatbox::-webkit-scrollbar { width: 6px; }
+    #chatbox::-webkit-scrollbar-thumb {
+      background-color: #9ca3af;
+      border-radius: 3px;
     }
   </style>
 </head>
 <body>
 
+  <!-- Navigation -->
   <nav>
     <h1>Block Mind AI</h1>
     <ul>
       <li><a href="#home">Home</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#about">About</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
 
+  <!-- Hero Section -->
   <header id="home">
-    <h2>Custom Websites & AI Chatbots That Work For You</h2>
-    <p>We build stunning, high-performing websites integrated with smart AI chatbots that generate leads and send them directly to your inbox — until you're 100% satisfied.</p>
-    <button class="cta-btn" onclick="document.getElementById('pricing').scrollIntoView({behavior: 'smooth'})">View Pricing</button>
+    <h2>Custom Websites + AI Chatbots That Work</h2>
+    <p><em>“Professional websites built to convert — powered by AI.”</em></p>
+    <p style="margin-top: 20px;">
+      We create stunning custom websites that come with an AI chatbot built to generate leads 24/7. Every site is designed from scratch and refined until you’re 100% satisfied.
+    </p>
   </header>
 
-  <section id="services">
-    <h3>What We Offer</h3>
-    <p>
-      Every business deserves a beautiful, functional online presence. Whether you need a brand-new website or a chatbot that converts visitors into leads — we’ve got you covered.
-    </p>
-    <div class="products">
-      <div class="product-card">
-        <h4>AI Chatbot Integration</h4>
-        <p>Turn visitors into leads with an intelligent chatbot that captures emails and phone numbers automatically.</p>
-        <p><strong>$75 setup + $199/mo</strong></p>
-        <button class="buy-btn" onclick="checkout('price_1SI376GfhzKDLKRCnQRwArFN')">Get Chatbot</button>
+  <!-- Selling Section -->
+  <section id="about">
+    <h3>Why Choose Block Mind AI?</h3>
+    <div class="selling-points">
+      <div class="point">
+        <h4>💻 Custom Website Design</h4>
+        <p>We’ll build a website tailored perfectly to your business — and we don’t stop until you’re completely happy with it.</p>
       </div>
-
-      <div class="product-card">
-        <h4>Website + AI Chatbot</h4>
-        <p>A fully customized website with built-in AI chatbot — tailored to your brand and guaranteed to impress.</p>
-        <p><strong>$249 setup + $199/mo</strong></p>
-        <button class="buy-btn" onclick="checkout('price_1SI376GfhzKDLKRCnQRwArFN')">Get Website + Chatbot</button>
+      <div class="point">
+        <h4>🤖 AI Chatbot Integration</h4>
+        <p>Your chatbot will engage visitors, capture leads, and send them directly to your email inbox — automatically.</p>
+      </div>
+      <div class="point">
+        <h4>📈 Convert Visitors Into Clients</h4>
+        <p>Every website and chatbot is optimized to bring in real results and help your business grow.</p>
+      </div>
+      <div class="point">
+        <h4>💬 Ongoing Support</h4>
+        <p>Our monthly subscription keeps your website and chatbot running smoothly with continuous updates and support.</p>
       </div>
     </div>
   </section>
 
-  <section id="contact">
-    <h3>Contact Us</h3>
-    <p><strong>Email:</strong> contact@blockmindai.org</p>
-    <p><strong>Instagram:</strong> @blockmindai</p>
+  <!-- CTA Section -->
+  <section class="cta">
+    <h3>Ready to get started?</h3>
+    <p>Pick the option that fits you best and launch your AI-powered site today.</p>
+    <button onclick="checkout('price_1SI376GfhzKDLKRCnQRwArFN')">Buy AI Chatbot – $75 setup + $199/mo</button>
+    <br><br>
+    <button onclick="checkout('price_1SI377Example')">Buy Website + Chatbot – $249 setup + $199/mo</button>
   </section>
 
+  <!-- Contact -->
+  <section id="contact">
+    <h3>Contact Us</h3>
+    <p>Email us at <strong>contact@blockmindai.org</strong> or reach out on Telegram: <strong>@blockmindai</strong></p>
+  </section>
+
+  <!-- Footer -->
   <footer>
-    © 2025 Block Mind AI — Custom Websites & AI Chatbots That Generate Leads.
+    © 2025 Block Mind AI • Custom Websites + AI Chatbots.
   </footer>
 
   <!-- Chat Widget -->
   <div id="chat-widget">
-    <div id="chat-header">💬 Chat with Block Mind AI</div>
+    <div id="chat-header">💬 Chat With Us</div>
     <div id="chat-body">
       <div id="chatbox"></div>
       <form id="inputForm">
         <input type="text" id="userInput" placeholder="Type a message..." autocomplete="off" required />
         <button type="submit" id="sendBtn">Send</button>
       </form>
+      <div id="powered-by">Powered by Block Mind AI</div>
     </div>
   </div>
 
   <script>
-    // Stripe Checkout
-    async function checkout(priceId) {
-      const res = await fetch('/api/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ priceId })
-      });
-      const data = await res.json();
-      if (data.url) window.location.href = data.url;
-      else alert('Checkout error, please try again.');
-    }
-
-    // Chat Toggle
-    const chatHeader = document.getElementById('chat-header');
-    const chatBody = document.getElementById('chat-body');
-    chatHeader.addEventListener('click', () => {
-      chatBody.style.display = chatBody.style.display === 'none' ? 'flex' : 'none';
-    });
-
-    // Chat Interaction
     const chatbox = document.getElementById('chatbox');
     const inputForm = document.getElementById('inputForm');
     const userInput = document.getElementById('userInput');
@@ -283,7 +295,6 @@
       appendMessage(message, 'user');
       userInput.value = '';
       appendMessage('Block Mind AI is typing...', 'bot');
-
       try {
         const res = await fetch('/api/chat', {
           method: 'POST',
@@ -295,9 +306,25 @@
         appendMessage(data.reply, 'bot');
       } catch {
         chatbox.lastChild.textContent = '';
-        appendMessage('Error: could not connect.', 'bot');
+        appendMessage('Error: Could not get response', 'bot');
       }
     });
+
+    async function checkout(priceId) {
+      const res = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ priceId })
+      });
+      const data = await res.json();
+      if (data.id) {
+        const stripe = Stripe('pk_test_replace_this_with_yours');
+        stripe.redirectToCheckout({ sessionId: data.id });
+      } else {
+        alert('Checkout error. Please try again.');
+      }
+    }
   </script>
+
 </body>
 </html>
