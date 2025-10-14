@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Block Mind AI – Custom Websites & AI Chatbots</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <script src="https://js.stripe.com/v3/"></script>
   <style>
     :root { scroll-behavior: smooth; }
 
@@ -60,28 +59,58 @@
 
     section {
       padding: 60px 20px;
-      max-width: 900px;
+      max-width: 1000px;
       margin: auto;
     }
 
-    section h3 { font-size: 2rem; color: #111827; margin-bottom: 10px; }
+    section h3 { font-size: 2rem; color: #111827; margin-bottom: 10px; text-align: center; }
     section p { font-size: 1.1rem; color: #374151; line-height: 1.7; }
 
+    /* ---------------- Selling Points ---------------- */
     .selling-points {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
       gap: 30px;
       margin-top: 40px;
     }
 
     .point {
-      background: #fff1cc;
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      background: linear-gradient(135deg, #fff8f0, #fff1cc);
+      border-radius: 16px;
+      padding: 25px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      flex: 1 1 250px;
+      max-width: 300px;
       text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
     }
 
+    .point:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    }
+
+    .point-icon {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 15px;
+    }
+
+    .point h4 {
+      margin: 10px 0 8px;
+      color: #111827;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .point p {
+      color: #374151;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    /* ---------------- CTA ---------------- */
     .cta {
       text-align: center;
       margin-top: 60px;
@@ -112,7 +141,7 @@
       margin-top: 60px;
     }
 
-    /* Chat Widget */
+    /* ---------------- Chat Widget ---------------- */
     #chat-widget {
       position: fixed;
       bottom: 20px;
@@ -198,7 +227,14 @@
       background-color: #9ca3af;
       border-radius: 3px;
     }
+
+    @media (max-width: 600px) {
+      nav ul { flex-direction: column; align-items: flex-start; }
+      nav { flex-direction: column; align-items: flex-start; }
+      .selling-points { flex-direction: column; gap: 20px; }
+    }
   </style>
+  <script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
 
@@ -207,7 +243,7 @@
     <h1>Block Mind AI</h1>
     <ul>
       <li><a href="#home">Home</a></li>
-      <li><a href="#about">About</a></li>
+      <li><a href="#about">Why Us</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
@@ -221,25 +257,28 @@
     </p>
   </header>
 
-  <!-- Selling Section -->
+  <!-- Selling Points Section -->
   <section id="about">
-    <h3>Why Choose Block Mind AI?</h3>
     <div class="selling-points">
       <div class="point">
+        <img src="https://img.icons8.com/ios-filled/80/ff8c00/laptop.png" alt="Custom Website" class="point-icon">
         <h4>💻 Custom Website Design</h4>
-        <p>Tailored websites designed perfectly to your business — refined until you’re completely satisfied.</p>
+        <p>Every site is built from scratch, tailored to your business, and refined until you’re 100% satisfied.</p>
       </div>
       <div class="point">
+        <img src="https://img.icons8.com/ios-filled/80/ff8c00/artificial-intelligence.png" alt="AI Chatbot" class="point-icon">
         <h4>🤖 AI Chatbot Integration</h4>
-        <p>Engage visitors, capture leads, and send them directly to your email automatically.</p>
+        <p>Your chatbot captures leads automatically and sends them directly to your inbox — day or night.</p>
       </div>
       <div class="point">
+        <img src="https://img.icons8.com/ios-filled/80/ff8c00/graph.png" alt="Conversions" class="point-icon">
         <h4>📈 Convert Visitors Into Clients</h4>
-        <p>Optimized websites and chatbots designed to bring in real results and grow your business.</p>
+        <p>Optimized to convert visitors into real customers, increasing your business growth.</p>
       </div>
       <div class="point">
+        <img src="https://img.icons8.com/ios-filled/80/ff8c00/customer-support.png" alt="Support" class="point-icon">
         <h4>💬 Ongoing Support</h4>
-        <p>Monthly subscription keeps your website and chatbot running smoothly with continuous updates and support.</p>
+        <p>Keep your website and AI chatbot updated with continuous maintenance and support.</p>
       </div>
     </div>
   </section>
@@ -247,14 +286,10 @@
   <!-- CTA Section -->
   <section class="cta">
     <h3>Ready to get started?</h3>
-    <p>Choose your option and launch your AI-powered site today.</p>
-    <button onclick="checkout('price_1SI376GfhzKDLKRCnQRwArFN')">
-      Buy AI Chatbot – $75 setup + $199/mo
-    </button>
+    <p>Pick the option that fits you best and launch your AI-powered site today.</p>
+    <button onclick="checkout('price_1SI376GfhzKDLKRCnQRwArFN')">Buy AI Chatbot – $75 setup + $199/mo</button>
     <br>
-    <button onclick="checkout('price_1SIAttGfhzKDLKRC49oSkZtJ')">
-      Buy Website + Chatbot – $249 setup + $199/mo
-    </button>
+    <button onclick="checkout('price_1SIAttGfhzKDLKRC49oSkZtJ')">Buy Website + Chatbot – $249 setup + $199/mo</button>
   </section>
 
   <!-- Contact -->
@@ -323,9 +358,8 @@
         body: JSON.stringify({ priceId })
       });
       const data = await res.json();
-      if (data.id) {
-        const stripe = Stripe('pk_live_51JKSzjGfhzKDLKRC1UlXkWgzxvModyquE9T80g4i2DkA9ML1rs6ZeoFQex7CTexkCGTXhfOAdwbpYRQCSJWaOBa100Hb9zfHJv');
-        stripe.redirectToCheckout({ sessionId: data.id });
+      if (data.url) {
+        window.location.href = data.url;
       } else {
         alert('Checkout error. Please try again.');
       }
