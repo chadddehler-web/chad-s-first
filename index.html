@@ -318,7 +318,7 @@
       });
       const data = await res.json();
       if (data.id) {
-        const stripe = Stripe('pk_test_replace_this_with_yours');
+        const stripe = Stripe('pk_live_51JKSzjGfhzKDLKRC1UlXkWgzxvModyquE9T80g4i2DkA9ML1rs6ZeoFQex7CTexkCGTXhfOAdwbpYRQCSJWaOBa100Hb9zfHJv');
         stripe.redirectToCheckout({ sessionId: data.id });
       } else {
         alert('Checkout error. Please try again.');
