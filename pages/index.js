@@ -22,6 +22,9 @@ export default function Home() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: input }),
       });
+      if (!res.ok) {
+        throw new Error("Chat request failed");
+      }
       const data = await res.json();
       setMessages((prev) =>
         prev.map((msg) =>
@@ -42,14 +45,21 @@ export default function Home() {
   };
 
   const handleCheckout = async (priceId) => {
-    const res = await fetch("/api/checkout", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ priceId }),
-    });
-    const data = await res.json();
-    if (data.url) window.location.href = data.url;
-    else alert("Checkout error. Please try again.");
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ priceId }),
+      });
+      if (!res.ok) {
+        throw new Error("Checkout request failed");
+      }
+      const data = await res.json();
+      if (data.url) window.location.href = data.url;
+      else throw new Error("Missing checkout URL");
+    } catch {
+      alert("Checkout error. Please try again.");
+    }
   };
 
   return (

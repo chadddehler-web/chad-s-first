@@ -1,4 +1,7 @@
 import "@testing-library/jest-dom";
+import { jest } from "@jest/globals";
+
+const originalFetch = global.fetch;
 
 beforeAll(() => {
   global.fetch = jest.fn();
@@ -6,4 +9,8 @@ beforeAll(() => {
 
 afterEach(() => {
   jest.clearAllMocks();
+});
+
+afterAll(() => {
+  global.fetch = originalFetch;
 });

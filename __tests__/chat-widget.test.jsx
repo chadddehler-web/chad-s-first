@@ -10,6 +10,7 @@ describe("handleSubmit", () => {
 
   it("replaces the typing placeholder with the API response", async () => {
     global.fetch.mockResolvedValue({
+      ok: true,
       json: async () => ({ reply: "Test reply" }),
     });
 
@@ -27,7 +28,10 @@ describe("handleSubmit", () => {
   });
 
   it("shows an error message when the API request fails", async () => {
-    global.fetch.mockRejectedValue(new Error("Network error"));
+    global.fetch.mockResolvedValue({
+      ok: false,
+      json: async () => ({ error: "Network error" }),
+    });
 
     render(<Home />);
 
