@@ -22,6 +22,9 @@ export default function Home() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: input }),
       });
+      if (!res.ok) {
+        throw new Error("Chat request failed");
+      }
       const data = await res.json();
       setMessages((prev) =>
         prev.map((msg) =>
@@ -42,14 +45,21 @@ export default function Home() {
   };
 
   const handleCheckout = async (priceId) => {
-    const res = await fetch("/api/checkout", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ priceId }),
-    });
-    const data = await res.json();
-    if (data.url) window.location.href = data.url;
-    else alert("Checkout error. Please try again.");
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ priceId }),
+      });
+      if (!res.ok) {
+        throw new Error("Checkout request failed");
+      }
+      const data = await res.json();
+      if (data.url) window.location.href = data.url;
+      else throw new Error("Missing checkout URL");
+    } catch {
+      alert("Checkout error. Please try again.");
+    }
   };
 
   return (
@@ -77,7 +87,10 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <header className="bg-gradient-to-br from-orange-600 to-orange-400 text-white text-center py-20 px-5">
+      <header
+        id="home"
+        className="bg-gradient-to-br from-orange-600 to-orange-400 text-white text-center py-20 px-5"
+      >
         <h2 className="text-5xl mb-4">Custom Websites + AI Chatbots That Work</h2>
         <p className="text-lg font-light max-w-xl mx-auto">
           <em>“Professional websites built to convert — powered by AI.”</em>
@@ -118,7 +131,7 @@ export default function Home() {
               key={i}
               className="flex-1 max-w-xs bg-gradient-to-br from-orange-50 to-yellow-50 rounded-xl p-6 shadow-lg text-center hover:shadow-2xl transition-transform transform hover:-translate-y-1"
             >
-              <img src={point.icon} alt={point.title} className="w-15 h-15 mb-4 mx-auto" />
+              <img src={point.icon} alt={point.title} className="w-16 h-16 mb-4 mx-auto" />
               <h4 className="text-lg font-semibold mb-2">{point.title}</h4>
               <p className="text-gray-700 text-sm leading-relaxed">{point.desc}</p>
             </div>
