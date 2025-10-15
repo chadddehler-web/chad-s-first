@@ -5,6 +5,7 @@ export default function Home() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
 
+  // ---- Chat logic ----
   const appendMessage = (text, sender) => {
     setMessages((prev) => [...prev, { text, sender }]);
   };
@@ -12,6 +13,7 @@ export default function Home() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!input.trim()) return;
+
     appendMessage(input, "user");
     setInput("");
     appendMessage("Block Mind AI is typing...", "bot");
@@ -22,10 +24,10 @@ export default function Home() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: input }),
       });
-      if (!res.ok) {
-        throw new Error("Chat request failed");
-      }
+
+      if (!res.ok) throw new Error("Chat request failed");
       const data = await res.json();
+
       setMessages((prev) =>
         prev.map((msg) =>
           msg.sender === "bot" && msg.text === "Block Mind AI is typing..."
@@ -44,32 +46,29 @@ export default function Home() {
     }
   };
 
+  // ---- Stripe Checkout ----
   const handleCheckout = async (priceId) => {
-    const res = await fetch("/api/checkout", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ priceId }),
-    });
-    const data = await res.json();
-    if (data.url) window.location.href = data.url;
-    else alert("Checkout error. Please try again.");
     try {
       const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ priceId }),
       });
-      if (!res.ok) {
-        throw new Error("Checkout request failed");
-      }
+
+      if (!res.ok) throw new Error("Checkout request failed");
       const data = await res.json();
-      if (data.url) window.location.href = data.url;
-      else throw new Error("Missing checkout URL");
+
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        throw new Error("Missing checkout URL");
+      }
     } catch {
       alert("Checkout error. Please try again.");
     }
   };
 
+  // ---- Page layout ----
   return (
     <>
       {/* Navigation */}
@@ -95,7 +94,6 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <header className="bg-gradient-to-br from-orange-600 to-orange-400 text-white text-center py-20 px-5">
       <header
         id="home"
         className="bg-gradient-to-br from-orange-600 to-orange-400 text-white text-center py-20 px-5"
@@ -140,8 +138,11 @@ export default function Home() {
               key={i}
               className="flex-1 max-w-xs bg-gradient-to-br from-orange-50 to-yellow-50 rounded-xl p-6 shadow-lg text-center hover:shadow-2xl transition-transform transform hover:-translate-y-1"
             >
-              <img src={point.icon} alt={point.title} className="w-15 h-15 mb-4 mx-auto" />
-              <img src={point.icon} alt={point.title} className="w-16 h-16 mb-4 mx-auto" />
+              <img
+                src={point.icon}
+                alt={point.title}
+                className="w-16 h-16 mb-4 mx-auto"
+              />
               <h4 className="text-lg font-semibold mb-2">{point.title}</h4>
               <p className="text-gray-700 text-sm leading-relaxed">{point.desc}</p>
             </div>
@@ -167,3 +168,21 @@ export default function Home() {
             Buy Website + Chatbot – $249 setup + $199/mo
           </button>
         </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="py-16 text-center px-5">
+        <h3 className="text-2xl mb-3">Contact Us</h3>
+        <p>
+          Email us at <strong>contact@blockmindai.org</strong> or reach out on Telegram:{" "}
+          <strong>@blockmindai</strong>
+        </p>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-gray-400 text-center py-6">
+        © 2025 Block Mind AI • Custom Websites + AI Chatbots.
+      </footer>
+    </>
+  );
+}
