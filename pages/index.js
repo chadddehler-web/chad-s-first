@@ -4,7 +4,7 @@ import { useState } from "react";
 export default function Home() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
-  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   // ---- Chat logic ----
   const appendMessage = (text, sender) => {
@@ -14,21 +14,17 @@ export default function Home() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!input.trim()) return;
-
     appendMessage(input, "user");
     setInput("");
     appendMessage("Block Mind AI is typing...", "bot");
-
     try {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: input }),
       });
-
       if (!res.ok) throw new Error("Chat request failed");
       const data = await res.json();
-
       setMessages((prev) =>
         prev.map((msg) =>
           msg.sender === "bot" && msg.text === "Block Mind AI is typing..."
@@ -55,15 +51,10 @@ export default function Home() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ priceId }),
       });
-
       if (!res.ok) throw new Error("Checkout request failed");
       const data = await res.json();
-
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
-        throw new Error("Missing checkout URL");
-      }
+      if (data.url) window.location.href = data.url;
+      else throw new Error("Missing checkout URL");
     } catch {
       alert("Checkout error. Please try again.");
     }
@@ -72,8 +63,8 @@ export default function Home() {
   return (
     <>
       {/* Navigation */}
-      <nav className="bg-orange-600 text-white flex justify-between items-center p-4 sticky top-0 z-50">
-        <h1 className="text-xl m-0">Block Mind AI</h1>
+      <nav className="bg-orange-600 text-white flex justify-between items-center p-4 sticky top-0 z-50 shadow-lg">
+        <h1 className="text-xl m-0 font-semibold">Block Mind AI</h1>
         <ul className="flex gap-5 m-0 p-0 list-none">
           <li>
             <a href="#home" className="hover:text-yellow-100 font-medium">
@@ -81,8 +72,8 @@ export default function Home() {
             </a>
           </li>
           <li>
-            <a href="#about" className="hover:text-yellow-100 font-medium">
-              Why Us
+            <a href="#plans" className="hover:text-yellow-100 font-medium">
+              Plans
             </a>
           </li>
           <li>
@@ -98,146 +89,134 @@ export default function Home() {
         id="home"
         className="bg-gradient-to-br from-orange-600 to-orange-400 text-white text-center py-20 px-5"
       >
-        <h2 className="text-5xl mb-4">Custom Websites + AI Chatbots That Work</h2>
+        <h2 className="text-5xl mb-4 font-bold">Custom Websites + AI Chatbots That Work</h2>
         <p className="text-lg font-light max-w-xl mx-auto">
           <em>“Professional websites built to convert — powered by AI.”</em>
         </p>
         <p className="mt-5 max-w-xl mx-auto">
-          We create stunning custom websites that come with an AI chatbot built to
-          generate leads 24/7. Every site is designed from scratch and refined until
-          you’re 100% satisfied.
+          We create stunning custom websites that come with an AI chatbot built to generate
+          leads 24/7. Every site is designed from scratch and refined until you’re 100%
+          satisfied.
         </p>
       </header>
 
-      {/* Selling Points Section */}
-      <section id="about" className="py-16 max-w-5xl mx-auto px-5">
-        <div className="flex flex-wrap justify-center gap-8 mt-10">
-          {[
-            {
-              icon: "https://img.icons8.com/ios-filled/80/ff8c00/laptop.png",
-              title: "💻 Custom Website Design",
-              desc: "Every site is built from scratch, tailored to your business, and refined until you’re 100% satisfied.",
-            },
-            {
-              icon: "https://img.icons8.com/ios-filled/80/ff8c00/artificial-intelligence.png",
-              title: "🤖 AI Chatbot Integration",
-              desc: "Your chatbot captures leads automatically and sends them directly to your inbox — day or night.",
-            },
-            {
-              icon: "https://img.icons8.com/ios-filled/80/ff8c00/graph.png",
-              title: "📈 Convert Visitors Into Clients",
-              desc: "Optimized to convert visitors into real customers, increasing your business growth.",
-            },
-            {
-              icon: "https://img.icons8.com/ios-filled/80/ff8c00/customer-support.png",
-              title: "💬 Ongoing Support",
-              desc: "Keep your website and AI chatbot updated with continuous maintenance and support.",
-            },
-          ].map((point, i) => (
-            <div
-              key={i}
-              className="flex-1 max-w-xs bg-gradient-to-br from-orange-50 to-yellow-50 rounded-xl p-6 shadow-lg text-center hover:shadow-2xl transition-transform transform hover:-translate-y-1"
-            >
-              <img
-                src={point.icon}
-                alt={point.title}
-                className="w-16 h-16 mb-4 mx-auto"
-              />
-              <h4 className="text-lg font-semibold mb-2">{point.title}</h4>
-              <p className="text-gray-700 text-sm leading-relaxed">{point.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* Plans Section */}
+      <section id="plans" className="py-16 bg-gradient-to-br from-orange-50 to-yellow-50 text-center">
+        <h3 className="text-4xl font-bold mb-10 text-gray-900">Choose Your Plan</h3>
 
-      {/* CTA Section */}
-      <section className="text-center mt-16 px-5">
-        <h3 className="text-3xl mb-2">Ready to get started?</h3>
-        <p>Pick the option that fits you best and launch your AI-powered site today.</p>
-        <div className="mt-4 flex flex-col gap-4 items-center">
-          <button
-            className="bg-orange-600 text-white px-10 py-3 rounded hover:bg-orange-500"
-            onClick={() => handleCheckout("price_1SI376GfhzKDLKRCnQRwArFN")}
-          >
-            Buy AI Chatbot – $75 setup + $199/mo
-          </button>
-          <button
-            className="bg-orange-600 text-white px-10 py-3 rounded hover:bg-orange-500"
-            onClick={() => handleCheckout("price_1SIAttGfhzKDLKRC49oSkZtJ")}
-          >
-            Buy Website + Chatbot – $249 setup + $199/mo
-          </button>
+        <div className="flex flex-wrap justify-center gap-10 px-5">
+          {/* Starter Plan */}
+          <div className="bg-white border border-orange-200 rounded-2xl shadow-lg hover:shadow-2xl p-8 w-80 transform transition-transform hover:-translate-y-1">
+            <h4 className="text-2xl font-semibold text-orange-700 mb-2">Starter Plan</h4>
+            <p className="text-gray-600 mb-4">
+              Get an AI chatbot integrated into your existing website — perfect for small
+              businesses ready to automate customer engagement.
+            </p>
+            <p className="text-lg font-bold text-gray-800 mb-6">💵 $149 setup + $99/month</p>
+            <button
+              className="bg-orange-600 text-white px-8 py-3 rounded-lg hover:bg-orange-500 transition"
+              onClick={() => handleCheckout("price_1SI376GfhzKDLKRCnQRwArFN")}
+            >
+              Choose Starter Plan
+            </button>
+          </div>
+
+          {/* Business Plan (Recommended) */}
+          <div className="relative bg-gradient-to-b from-orange-100 to-white border border-orange-300 rounded-2xl shadow-2xl p-8 w-80 transform transition-transform hover:-translate-y-2 scale-105">
+            <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-orange-600 text-white text-sm font-semibold px-3 py-1 rounded-full shadow-md">
+              ★ Recommended
+            </span>
+            <h4 className="text-2xl font-semibold text-orange-700 mb-2">Business Plan</h4>
+            <p className="text-gray-600 mb-4">
+              Includes a full custom website built from scratch + integrated AI chatbot to
+              capture leads and automate responses — a complete online presence.
+            </p>
+            <p className="text-lg font-bold text-gray-800 mb-6">💵 $249 setup + $149/month</p>
+            <button
+              className="bg-orange-600 text-white px-8 py-3 rounded-lg hover:bg-orange-500 transition"
+              onClick={() => handleCheckout("price_1SIAttGfhzKDLKRC49oSkZtJ")}
+            >
+              Choose Business Plan
+            </button>
+          </div>
+
+          {/* Growth Plan */}
+          <div className="bg-white border border-orange-200 rounded-2xl shadow-lg hover:shadow-2xl p-8 w-80 transform transition-transform hover:-translate-y-1">
+            <h4 className="text-2xl font-semibold text-orange-700 mb-2">Growth Plan</h4>
+            <p className="text-gray-600 mb-4">
+              Advanced website + chatbot + lead generation, SEO optimization, and advertising
+              management — designed for scaling businesses.
+            </p>
+            <p className="text-lg font-bold text-gray-800 mb-6">💵 $249 setup + $279/month</p>
+            <button
+              className="bg-orange-600 text-white px-8 py-3 rounded-lg hover:bg-orange-500 transition"
+              onClick={() => handleCheckout("price_1YOURNEWPRICEIDHERE")}
+            >
+              Choose Growth Plan
+            </button>
+          </div>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-16 text-center px-5">
-        <h3 className="text-2xl mb-3">Contact Us</h3>
-        <p>
+      <section id="contact" className="py-16 text-center px-5 bg-white">
+        <h3 className="text-2xl mb-3 font-semibold text-gray-900">Contact Us</h3>
+        <p className="text-gray-700">
           Email us at <strong>contact@blockmindai.org</strong> or reach out on Telegram:{" "}
           <strong>@blockmindai</strong>
         </p>
       </section>
 
-      {/* Floating Chatbot Widget */}
-      <div className="fixed bottom-6 right-6 z-50">
-        {isChatOpen ? (
-          <div className="bg-white rounded-2xl shadow-2xl w-80 h-96 flex flex-col border border-gray-300 overflow-hidden">
-            <div className="bg-orange-600 text-white p-3 flex justify-between items-center">
-              <span className="font-semibold">Block Mind AI</span>
-              <button
-                onClick={() => setIsChatOpen(false)}
-                className="text-white text-lg font-bold"
-              >
-                −
-              </button>
-            </div>
+      {/* Footer */}
+      <footer className="bg-gray-900 text-gray-400 text-center py-6">
+        © 2025 Block Mind AI • Custom Websites + AI Chatbots.
+      </footer>
 
-            <div className="flex-1 p-3 overflow-y-auto text-sm space-y-2">
+      {/* Chatbot Widget */}
+      <div className="fixed bottom-6 right-6 z-50">
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="bg-orange-600 text-white rounded-full p-4 shadow-lg hover:bg-orange-500 transition"
+        >
+          💬
+        </button>
+        {isOpen && (
+          <div className="bg-white shadow-2xl rounded-xl w-80 mt-3 overflow-hidden border border-gray-200 flex flex-col">
+            <div className="bg-orange-600 text-white text-center font-semibold py-2">
+              Block Mind AI
+            </div>
+            <div className="flex-1 p-3 overflow-y-auto max-h-64">
               {messages.map((msg, i) => (
                 <div
                   key={i}
-                  className={`p-2 rounded-xl ${
+                  className={`my-1 p-2 rounded-lg text-sm ${
                     msg.sender === "user"
-                      ? "bg-orange-100 text-gray-800 self-end text-right"
-                      : "bg-gray-100 text-gray-700 self-start text-left"
+                      ? "bg-orange-600 text-white self-end ml-auto max-w-[80%]"
+                      : "bg-gray-100 text-gray-900 self-start mr-auto max-w-[80%]"
                   }`}
                 >
                   {msg.text}
                 </div>
               ))}
             </div>
-
-            <form onSubmit={handleSubmit} className="flex border-t border-gray-200">
+            <form onSubmit={handleSubmit} className="flex border-t border-gray-300">
               <input
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Type your message..."
-                className="flex-1 p-2 text-sm focus:outline-none"
+                placeholder="Type a message..."
+                className="flex-1 p-2 text-sm outline-none"
               />
               <button
                 type="submit"
-                className="bg-orange-600 text-white px-4 text-sm font-semibold"
+                className="bg-orange-600 text-white px-4 hover:bg-orange-500 transition"
               >
                 Send
               </button>
             </form>
           </div>
-        ) : (
-          <button
-            onClick={() => setIsChatOpen(true)}
-            className="bg-orange-600 text-white rounded-full w-14 h-14 flex items-center justify-center shadow-lg hover:bg-orange-500"
-          >
-            💬
-          </button>
         )}
       </div>
-
-      {/* Footer */}
-      <footer className="bg-gray-900 text-gray-400 text-center py-6">
-        © 2025 Block Mind AI • Custom Websites + AI Chatbots.
-      </footer>
     </>
   );
 }
