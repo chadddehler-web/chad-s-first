@@ -4,6 +4,7 @@ import { useState } from "react";
 export default function Home() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   // ---- Chat logic ----
   const appendMessage = (text, sender) => {
@@ -68,7 +69,6 @@ export default function Home() {
     }
   };
 
-  // ---- Page layout ----
   return (
     <>
       {/* Navigation */}
@@ -178,6 +178,61 @@ export default function Home() {
           <strong>@blockmindai</strong>
         </p>
       </section>
+
+      {/* Floating Chatbot Widget */}
+      <div className="fixed bottom-6 right-6 z-50">
+        {isChatOpen ? (
+          <div className="bg-white rounded-2xl shadow-2xl w-80 h-96 flex flex-col border border-gray-300 overflow-hidden">
+            <div className="bg-orange-600 text-white p-3 flex justify-between items-center">
+              <span className="font-semibold">Block Mind AI</span>
+              <button
+                onClick={() => setIsChatOpen(false)}
+                className="text-white text-lg font-bold"
+              >
+                −
+              </button>
+            </div>
+
+            <div className="flex-1 p-3 overflow-y-auto text-sm space-y-2">
+              {messages.map((msg, i) => (
+                <div
+                  key={i}
+                  className={`p-2 rounded-xl ${
+                    msg.sender === "user"
+                      ? "bg-orange-100 text-gray-800 self-end text-right"
+                      : "bg-gray-100 text-gray-700 self-start text-left"
+                  }`}
+                >
+                  {msg.text}
+                </div>
+              ))}
+            </div>
+
+            <form onSubmit={handleSubmit} className="flex border-t border-gray-200">
+              <input
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="Type your message..."
+                className="flex-1 p-2 text-sm focus:outline-none"
+              />
+              <button
+                type="submit"
+                className="bg-orange-600 text-white px-4 text-sm font-semibold"
+              >
+                Send
+              </button>
+            </form>
+          </div>
+        ) : (
+          <button
+            onClick={() => setIsChatOpen(true)}
+            className="bg-orange-600 text-white rounded-full w-14 h-14 flex items-center justify-center shadow-lg hover:bg-orange-500"
+          >
+            💬
+          </button>
+        )}
+      </div>
 
       {/* Footer */}
       <footer className="bg-gray-900 text-gray-400 text-center py-6">
