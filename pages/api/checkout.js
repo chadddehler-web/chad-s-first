@@ -7,7 +7,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Method Not Allowed" });
   }
 
-  const { plan } = req.body; // we'll pass "starter", "business", or "growth" from frontend
+  const { plan } = req.body; // "starter", "business", or "growth"
 
   try {
     let setupFee = 0;
@@ -16,25 +16,25 @@ export default async function handler(req, res) {
 
     switch (plan) {
       case "starter":
-        setupFee = 14900; // $149 (in cents)
-        monthlyFee = 9900; // $99/month
+        setupFee = 14900; // $149 setup
+        monthlyFee = 4900; // $49/month
         planName = "Starter Plan";
         break;
       case "business":
         setupFee = 24900; // $249 setup
-        monthlyFee = 14900; // $149/month
+        monthlyFee = 8900; // $89/month
         planName = "Business Plan";
         break;
       case "growth":
         setupFee = 24900; // $249 setup
-        monthlyFee = 27900; // $279/month
+        monthlyFee = 14900; // $149/month
         planName = "Growth Plan";
         break;
       default:
         return res.status(400).json({ error: "Invalid plan" });
     }
 
-    // Create a checkout session directly with prices
+    // Create Stripe Checkout Session
     const session = await stripe.checkout.sessions.create({
       mode: "subscription",
       payment_method_types: ["card"],
@@ -44,7 +44,7 @@ export default async function handler(req, res) {
             currency: "usd",
             product_data: {
               name: `${planName} Subscription`,
-              description: `Recurring monthly payment for the ${planName}`,
+              description: `Monthly subscription for ${planName}`,
             },
             unit_amount: monthlyFee,
             recurring: { interval: "month" },
