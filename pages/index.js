@@ -1,4 +1,3 @@
-// pages/index.js
 import { useState } from "react";
 
 export default function Home() {
@@ -44,12 +43,12 @@ export default function Home() {
   };
 
   // ---- Stripe Checkout ----
-  const handleCheckout = async (priceId) => {
+  const handleCheckout = async (plan) => {
     try {
       const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ priceId }),
+        body: JSON.stringify({ plan }),
       });
       if (!res.ok) throw new Error("Checkout request failed");
       const data = await res.json();
@@ -89,33 +88,44 @@ export default function Home() {
         id="home"
         className="bg-gradient-to-br from-orange-600 to-orange-400 text-white text-center py-20 px-5"
       >
-        <h2 className="text-5xl mb-4 font-bold">Custom Websites + AI Chatbots That Work</h2>
+        <h2 className="text-5xl mb-4 font-bold">
+          Custom Websites + AI Chatbots That Work
+        </h2>
         <p className="text-lg font-light max-w-xl mx-auto">
           <em>“Professional websites built to convert — powered by AI.”</em>
         </p>
         <p className="mt-5 max-w-xl mx-auto">
-          We create stunning custom websites that come with an AI chatbot built to generate
-          leads 24/7. Every site is designed from scratch and refined until you’re 100%
-          satisfied.
+          We create stunning custom websites that come with an AI chatbot built
+          to generate leads 24/7. Every site is designed from scratch and
+          refined until you’re 100% satisfied.
         </p>
       </header>
 
       {/* Plans Section */}
-      <section id="plans" className="py-16 bg-gradient-to-br from-orange-50 to-yellow-50 text-center">
-        <h3 className="text-4xl font-bold mb-10 text-gray-900">Choose Your Plan</h3>
+      <section
+        id="plans"
+        className="py-16 bg-gradient-to-br from-orange-50 to-yellow-50 text-center"
+      >
+        <h3 className="text-4xl font-bold mb-10 text-gray-900">
+          Choose Your Plan
+        </h3>
 
         <div className="flex flex-wrap justify-center gap-10 px-5">
           {/* Starter Plan */}
           <div className="bg-white border border-orange-200 rounded-2xl shadow-lg hover:shadow-2xl p-8 w-80 transform transition-transform hover:-translate-y-1">
-            <h4 className="text-2xl font-semibold text-orange-700 mb-2">Starter Plan</h4>
+            <h4 className="text-2xl font-semibold text-orange-700 mb-2">
+              Starter Plan
+            </h4>
             <p className="text-gray-600 mb-4">
-              Get an AI chatbot integrated into your existing website — perfect for small
-              businesses ready to automate customer engagement.
+              Get an AI chatbot integrated into your existing website — perfect
+              for small businesses ready to automate customer engagement.
             </p>
-            <p className="text-lg font-bold text-gray-800 mb-6">💵 $149 setup + $99/month</p>
+            <p className="text-lg font-bold text-gray-800 mb-6">
+              💵 $149 setup + $99/month
+            </p>
             <button
               className="bg-orange-600 text-white px-8 py-3 rounded-lg hover:bg-orange-500 transition"
-              onClick={() => handleCheckout("price_1SI376GfhzKDLKRCnQRwArFN")}
+              onClick={() => handleCheckout("starter")}
             >
               Choose Starter Plan
             </button>
@@ -126,15 +136,20 @@ export default function Home() {
             <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-orange-600 text-white text-sm font-semibold px-3 py-1 rounded-full shadow-md">
               ★ Recommended
             </span>
-            <h4 className="text-2xl font-semibold text-orange-700 mb-2">Business Plan</h4>
+            <h4 className="text-2xl font-semibold text-orange-700 mb-2">
+              Business Plan
+            </h4>
             <p className="text-gray-600 mb-4">
-              Includes a full custom website built from scratch + integrated AI chatbot to
-              capture leads and automate responses — a complete online presence.
+              Includes a full custom website built from scratch + integrated AI
+              chatbot to capture leads and automate responses — a complete
+              online presence.
             </p>
-            <p className="text-lg font-bold text-gray-800 mb-6">💵 $249 setup + $149/month</p>
+            <p className="text-lg font-bold text-gray-800 mb-6">
+              💵 $249 setup + $149/month
+            </p>
             <button
               className="bg-orange-600 text-white px-8 py-3 rounded-lg hover:bg-orange-500 transition"
-              onClick={() => handleCheckout("price_1SIAttGfhzKDLKRC49oSkZtJ")}
+              onClick={() => handleCheckout("business")}
             >
               Choose Business Plan
             </button>
@@ -142,15 +157,19 @@ export default function Home() {
 
           {/* Growth Plan */}
           <div className="bg-white border border-orange-200 rounded-2xl shadow-lg hover:shadow-2xl p-8 w-80 transform transition-transform hover:-translate-y-1">
-            <h4 className="text-2xl font-semibold text-orange-700 mb-2">Growth Plan</h4>
+            <h4 className="text-2xl font-semibold text-orange-700 mb-2">
+              Growth Plan
+            </h4>
             <p className="text-gray-600 mb-4">
-              Advanced website + chatbot + lead generation, SEO optimization, and advertising
-              management — designed for scaling businesses.
+              Advanced website + chatbot + lead generation, SEO optimization,
+              and advertising management — designed for scaling businesses.
             </p>
-            <p className="text-lg font-bold text-gray-800 mb-6">💵 $249 setup + $279/month</p>
+            <p className="text-lg font-bold text-gray-800 mb-6">
+              💵 $249 setup + $279/month
+            </p>
             <button
               className="bg-orange-600 text-white px-8 py-3 rounded-lg hover:bg-orange-500 transition"
-              onClick={() => handleCheckout("price_1YOURNEWPRICEIDHERE")}
+              onClick={() => handleCheckout("growth")}
             >
               Choose Growth Plan
             </button>
@@ -160,10 +179,12 @@ export default function Home() {
 
       {/* Contact Section */}
       <section id="contact" className="py-16 text-center px-5 bg-white">
-        <h3 className="text-2xl mb-3 font-semibold text-gray-900">Contact Us</h3>
+        <h3 className="text-2xl mb-3 font-semibold text-gray-900">
+          Contact Us
+        </h3>
         <p className="text-gray-700">
-          Email us at <strong>contact@blockmindai.org</strong> or reach out on Telegram:{" "}
-          <strong>@blockmindai</strong>
+          Email us at <strong>contact@blockmindai.org</strong> or reach out on
+          Telegram: <strong>@blockmindai</strong>
         </p>
       </section>
 
