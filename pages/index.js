@@ -121,7 +121,7 @@ export default function Home() {
               for small businesses ready to automate customer engagement.
             </p>
             <p className="text-lg font-bold text-gray-800 mb-6">
-              💵 $149 setup + $99/month
+              💵 $149 setup + $49/month
             </p>
             <button
               className="bg-orange-600 text-white px-8 py-3 rounded-lg hover:bg-orange-500 transition"
@@ -145,7 +145,7 @@ export default function Home() {
               online presence.
             </p>
             <p className="text-lg font-bold text-gray-800 mb-6">
-              💵 $249 setup + $149/month
+              💵 $249 setup + $89/month
             </p>
             <button
               className="bg-orange-600 text-white px-8 py-3 rounded-lg hover:bg-orange-500 transition"
@@ -165,7 +165,7 @@ export default function Home() {
               and advertising management — designed for scaling businesses.
             </p>
             <p className="text-lg font-bold text-gray-800 mb-6">
-              💵 $249 setup + $279/month
+              💵 $249 setup + $149/month
             </p>
             <button
               className="bg-orange-600 text-white px-8 py-3 rounded-lg hover:bg-orange-500 transition"
@@ -220,7 +220,10 @@ export default function Home() {
                 </div>
               ))}
             </div>
-            <form onSubmit={handleSubmit} className="flex border-t border-gray-300">
+            <form
+              onSubmit={handleSubmit}
+              className="flex border-t border-gray-300"
+            >
               <input
                 type="text"
                 value={input}
